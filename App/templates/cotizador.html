@@ -1,0 +1,450 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<meta name="robots" content="index,follow">
+		<meta name="google-site-verification" content="">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+    <title>TUM GURÚ</title>
+
+		<!-- Favicons
+		================================================== -->
+		<link rel="shortcut icon" href="https://www.superagencia.com.ar/clientes/tumguru/v2/fav.png"> 
+		
+		
+    <!-- Fonts
+		================================================== -->
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="{% static 'css/all.css.' %}" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+ 		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com/">
+		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+		<link href="{% static 'css/css2.css.' %}" rel="stylesheet">
+
+		<!-- Bootstrap core CSS -->
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><!-- Material Design Bootstrap -->
+
+  		
+	 <!--Stylesheet-->
+	<link rel="stylesheet" href="{% static 'css/style.css.' %}">
+
+</head>
+<script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type='text/javascript' src="{% static 'js/scripts.js' %}"></script>
+<script type='text/javascript' src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type='text/javascript' src="{% static 'js/script.js' %}"></script>
+<body>
+<!-- partial:index.partial.html -->
+<!-- multistep form -->
+<form id="msform">
+  <!-- progressbar -->
+  <ul id="progressbar">
+    <li class="active"><span>Bienvenida</span></li>
+    <li><span>¿Qué?</span></li>
+    <li><span>¿Cuántos?</span></li>
+    <li><span>¿Cómo?</span></li>
+    <li><span>¿Software?</span></li>
+    <li><span>Resumen</span></li>
+  </ul>
+  <!-- fieldsets -->
+  <fieldset>
+    <h2 class="fs-title">¿Querés geolocalizar algo?</h2>
+    <h3 class="fs-subtitle">Respondé estas 4 preguntas rápidas y te daremos las mejores promociones del mercado. El gurú te promete que no tardarás más de 1 minuto.</h3>
+     <input type="button" name="next" class="next action-button" value="SIGUIENTE">
+		
+		<div class="content-guru">
+			<div class="guru">
+				<img src="{% static 'imagenes/guru-big.png' %}" class="">			
+			
+			</div>
+			<div class="guru-mje">
+			<div class="arrow_box">
+			
+				<p>Voy a analizar tu solicitud y rápidamente te daré: empresas, promociones y oportunidades en el mundo del GPS y gestión de flotas. 
+<br>Tu problema, resuelto.<br>
+Saludos de tu Gurú.
+</p>
+
+			</div>			
+			</div>			
+		</div>		
+		 
+  </fieldset>
+	
+	
+  <fieldset>
+    <h2 class="fs-title">¿Qué querés rastrear?</h2>
+
+<div class="btn-group group-radios" role="group" aria-label="Qué rastrear">
+ 
+	<input type="radio" class="btn-check" name="btncheck1" id="btncheck1" autocomplete="">
+  <label class="btn btn-outline-primary" for="btncheck1">Autos/Camionetas</label>
+
+  <input type="radio" class="btn-check" name="btncheck2" id="btncheck2" autocomplete="">
+  <label class="btn btn-outline-primary" for="btncheck2">Utilitario/Livianos</label>
+
+  <input type="radio" class="btn-check" name="btncheck3" id="btncheck3" autocomplete="">
+  <label class="btn btn-outline-primary" for="btncheck3">Camiones/Tractor</label>
+	
+  <input type="radio" class="btn-check" name="btncheck4" id="btncheck4" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck4">Trailers</label>
+	
+  <input type="radio" class="btn-check" name="btncheck5" id="btncheck5" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck5">Chasis</label>
+	
+  <input type="radio" class="btn-check" name="btncheck6" id="btncheck6" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck6">Motos</label>
+	
+  <input type="radio" class="btn-check" name="btncheck7" id="btncheck7" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck7">Mercaderia</label>
+	
+  <input type="radio" class="btn-check" name="btncheck8" id="btncheck8" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck8">Personas</label>
+	
+  <input type="radio" class="btn-check" name="btncheck9" id="btncheck9" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck9">Smartphone </label>
+	
+  <input type="radio" class="btn-check" name="btncheck10" id="btncheck10" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck10">Maquinaria</label>
+	
+  <input type="radio" class="btn-check" name="btncheck11" id="btncheck11" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck11">Precintos Electrónicos</label>
+	
+  <input type="radio" class="btn-check" name="btncheck12" id="btncheck12" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btncheck12">Containers</label>
+
+	
+</div>
+  
+    <input type="button" name="previous" class="previous action-button" value="ANTERIOR">
+    <input type="button" name="next" class="next action-button" value="SIGUIENTE">
+		
+		<div class="content-guru">
+			<div class="guru">
+				<img src="{% static 'imagenes/guru-2.png' %}" class="guru">			
+			
+			</div>
+			<div class="guru-mje">
+			<div class="arrow_box">			
+				<p>Tenés que elegir una sola categoría.<br>Si son varias cosas las que tenés que rastrear, me volvés a preguntar. Total, no te cobro.<br>¡Qué Gurú copado que soy!</p>
+			</div>			
+			</div>			
+		</div>	
+		
+  </fieldset>
+
+
+
+  <fieldset>
+    <h2 class="fs-title">¿Cuántos "producto" necesitas rastrear?</h2>
+		<input type="text" name="cantidad" placeholder="Cantidad" class="contact cantidad">
+		<input type="button" name="previous" class="previous action-button" value="ANTERIOR">
+    <input type="button" name="next" class="next action-button" value="SIGUIENTE">
+		<div class="content-guru">
+			<div class="guru">
+				<img src= "{% static 'imagenes/guru-2.png' %}" class="">			
+			</div>
+			<div class="guru-mje">
+			<div class="arrow_box">
+			
+				<p>Mi número preferido es el 32.<br>Te lo digo para que nos vayamos conociendo un poquito más.<br>Si tenés que rastrear 32 cosas tal vez seamos almas gemelas.</p>
+			</div>			
+			</div>			
+		</div>
+		
+  </fieldset>
+	
+  <fieldset>
+    <h2 class="fs-title">Contame un poquito más...</h2>
+		
+		<div class="btn-group group-radios w-100" role="group" aria-label="">
+			
+			<input type="radio" class="btn-check btn-log" id="btncheck13" name="btncheck13" autocomplete="off">
+			<label class="btn btn-outline-primary btn-med" for="btncheck13">Logístico</label>
+
+			<input type="radio" class="btn-check btn-seg" id="btncheck14" name="btncheck14" autocomplete="off">
+			<label class="btn btn-outline-primary btn-med" for="btncheck14">Seguridad</label>
+
+			<input type="radio" class="btn-check btn-segui" id="btncheck17" name="btncheck17" autocomplete="off">
+			<label class="btn btn-outline-primary btn-med" for="btncheck17">Seguimiento</label>
+			
+			<input type="radio" class="btn-check btn-con" id="btncheck15" name="btncheck15" autocomplete="off">
+			<label class="btn btn-outline-primary btn-med" for="btncheck15">Control Temperatura</label>
+			
+			<input type="radio" class="btn-check btn-vid" id="btncheck16" name="btncheck16" autocomplete="off">
+			<label class="btn btn-outline-primary btn-med" for="btncheck16">Video Abordo</label>
+						
+
+			
+		</div>
+		
+		<div id="logistico" class="caracteristicas">
+ 			
+<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-01">
+			<label class="form-check-label" for="check-01">
+				Conducta de manejo
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-02">
+			<label class="form-check-label" for="check-02">
+				Identificacion conductor
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-03">
+			<label class="form-check-label" for="check-03">
+				Apertura de puertas laterales
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-04">
+			<label class="form-check-label" for="check-04">
+				Apertura de puerta de carga
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-05">
+			<label class="form-check-label" for="check-05">
+				Presencia de acompañante
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-06">
+			<label class="form-check-label" for="check-06">
+				Telemetria
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-08">
+			<label class="form-check-label" for="check-08">
+				Enganche y desenganche trailer
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-07">
+			<label class="form-check-label" for="check-07">
+				Otros
+			</label>
+			
+				 
+		</div>
+		</div>
+		
+		<div id="seguridad" class="caracteristicas">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-01">
+			<label class="form-check-label" for="check-01">
+				Boton de panico
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-02">
+			<label class="form-check-label" for="check-02">
+				Corte combustible/bloqueo motor
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-03">
+			<label class="form-check-label" for="check-03">
+				Cerradura electromecanica puerta de carga
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-04">
+			<label class="form-check-label" for="check-04">
+				Traba 5ª rueda
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-05">
+			<label class="form-check-label" for="check-05">
+				Varillas ventana
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-06">
+			<label class="form-check-label" for="check-06">
+				Monitoreo &amp; atencion de alarmas tercerizado
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" value="" id="check-07">
+			<label class="form-check-label" for="check-07">
+				Otros
+			</label>
+		</div>
+ 
+		</div>
+		
+		<div id="control" class="caracteristicas">
+		
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-08">
+				<label class="form-check-label" for="check-05">
+					Sensor temperatura
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-09">
+				<label class="form-check-label" for="check-06">
+					Sensor humedad
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-10">
+				<label class="form-check-label" for="check-07">
+					Dataloger
+				</label>
+			</div> 
+		</div>		
+		
+		<div id="video" class="caracteristicas">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-11">
+				<label class="form-check-label" for="check-05">
+					Dashcam
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-12">
+				<label class="form-check-label" for="check-06">
+					Video monitoreo
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-13">
+				<label class="form-check-label" for="check-07">
+					Sistema ADAS
+				</label>
+			</div>  
+		</div>
+		
+		<div id="seguimiento" class="caracteristicas">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-14">
+				<label class="form-check-label" for="check-05">
+					Opc1
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-15">
+				<label class="form-check-label" for="check-06">
+					Opc2
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="check-16">
+				<label class="form-check-label" for="check-07">
+					Opc3
+				</label>
+			</div> 
+		</div>
+		
+		
+		
+		<input type="button" name="previous" class="previous action-button" value="ANTERIOR">
+    <input type="button" name="next" class="next action-button" value="SIGUIENTE">
+
+	<div class="content-guru">
+			
+			<div class="guru">
+				<img src="{% static 'imagenes/guru-big.png' %}" class="">						
+			</div>
+			
+			<div class="guru-mje">
+				<div class="arrow_box">			
+					<p>Podés marcar varias opciones.<br>Esto me ayuda a determinar cuál es el mejor curso de acción y puedo armar una solución para resolver tu problema.<br>¡Apa! No me tenías en gurú técnico. Te sorprendí.</p>
+				</div>			
+			</div>			
+			
+		</div>
+		
+  </fieldset>	
+	
+	
+  <fieldset>
+    <h2 class="fs-title">¿Necesitas algún software adicional?</h2>
+		
+		<div class="btn-group group-radios " role="group" aria-label="">
+			
+			<input type="radio" class="btn-check" id="btncheck19" name="btncheck19" autocomplete="off">
+			<label class="btn btn-outline-primary btn-" for="btncheck19">Ninguno </label>
+
+			<input type="radio" class="btn-check" id="btncheck20" name="btncheck20" autocomplete="off">
+			<label class="btn btn-outline-primary btn-" for="btncheck20">Mantenimiento del vehículo </label>
+
+			<input type="radio" class="btn-check" id="btncheck21" name="btncheck21" autocomplete="off">
+			<label class="btn btn-outline-primary btn-" for="btncheck21">Optimización de rutas</label>
+			
+			<input type="radio" class="btn-check" id="btncheck22" name="btncheck22" autocomplete="off">
+			<label class="btn btn-outline-primary btn-" for="btncheck22">Confirmación de tareas </label>
+						
+			<input type="radio" class="btn-check" id="btncheck23" name="btncheck23" autocomplete="off">
+			<label class="btn btn-outline-primary btn-" for="btncheck23">Control de entregas</label>
+						
+			<input type="radio" class="btn-check" id="btncheck24" name="btncheck24" autocomplete="off">
+			<label class="btn btn-outline-primary btn-" for="btncheck24">Otros</label>
+			
+		</div>
+		<input type="button" name="previous" class="previous action-button" value="ANTERIOR">
+    <input type="button" name="next" class="next action-button" value="FINALIZAR">
+		
+		<div class="content-guru">
+			<div class="guru">
+				<img src="{% static 'imagenes/guru-big.png' %}" class="">			
+			</div>
+			<div class="guru-mje">
+				<div class="arrow_box">			
+					<p>Geolocalizar es una cosa y gestionar los datos es otra. Tengo soluciones de todo tipo. ¿Te puedo ayudar con esto también?</p>
+				</div>			
+			</div>			
+		</div>
+		
+  </fieldset>
+	
+  <fieldset class="last-step">
+		<div class="animacion-final">
+			<div class="content-guru grande">
+				<div class="guru">
+					 
+					<img src= "{% static 'imagenes/guru-2.png' %}" class="">			
+				</div> 			
+			</div>
+		</div>
+		
+		<div>
+			<h2 class="fs-title">Tengo la respuesta para vos.</h2>
+			<h3 class="fs-subtitle">Completá con tus datos, y te enviamos la propuesta a tu email.</h3>
+			
+			<select class="form-select contact" aria-label="Default select example">
+				<option selected="">Usuario</option>
+				<option value="1">Particular</option>
+				<option value="2">Dueños de un negocio</option>
+				<option value="3">Empresa</option>
+			</select>
+			<input type="text" name="name" placeholder="Nombre" class="contact">
+			<input type="text" name="email" placeholder="E-mail" class="contact">
+			<input type="text" name="celphone" placeholder="Celular" class="contact">
+			
+ 			<input type="submit" name="submit" class="submit action-button" value="ENVIAR">
+		</div>
+  </fieldset>
+	
+</form>
+
+<!-- partial -->
+<script type='text/javascript' src="{% static 'js/jquery.min.js'%}"></script>
+<script type='text/javascript' src="{% static 'js/jquery.min.map'%}"></script>
+<script type='text/javascript' src="{% static 'js/jquery.easing.min.js'%}"></script>
+<script type='text/javascript' src="{% static 'js/bootstrap.bundle.min.js'%}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script type='text/javascript' src="{% static 'js/script.js'%}"></script>
+
+</body>
+
+</html>

@@ -14,18 +14,12 @@ def inicio(request):
     #return render(request, 'hola')
     context ={}
     return render(request, '0-inicio.html', context)  
-    
 
-def bienvenida(request):
-    #return render(request, '2-bienvenida.html')  
-    return HttpResponse("bienvenida")
+def cotizar(request):
+    #return render(request, 'hola')
+    context ={}
+    return render(request, 'cotizador.html', context)
 
-def que(request):
-    # Esta lista habría que obtenerla de la BD
-    rastrear = ["AUTO/SUV", "MOTO", "UTILITARIO", "CAMION", "CONTAINER", "TRAILER", "PRECINTO ELECTRÓNICO", "MERCADERIA"]
-    context ={"rastrear": rastrear}
-    return render(request, '2-que.html', context)     
-
-def resumen(request):
+def fin(request):
     context = {}
     return render(request, '6-resumen.html', context)
