@@ -17,8 +17,8 @@ def inicio(request):
     
 
 def bienvenida(request):
-    #return render(request, '2-bienvenida.html')  
-    return HttpResponse("bienvenida")
+    context = {}
+    return render(request, '1-bienvenida.html', context)
 
 def que(request):
     # Esta lista habría que obtenerla de la BD
