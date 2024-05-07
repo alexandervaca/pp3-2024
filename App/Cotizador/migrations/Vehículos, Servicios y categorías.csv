@@ -1,0 +1,29 @@
+CATEGORIA,SERVICIO,Motos,Automovil,Utilitario,Camión,Trailer,Container,Mercadería,Precintos electrónicos
+Logístico,Seguimiento GPS en Tiempo real,a,a,a,a,a,a,a,a
+Logístico,Control de combustible,r,a,a,a,r,a,r,r
+Logístico,Conducta de manejo ,r,a,a,a,r,r,r,r
+Logístico,Identificacion conductor,r,a,a,a,r,a,r,r
+Logístico,Apertura de puertas laterales,r,a,a,a,r,r,r,r
+Logístico,Apertura de puerta de carga,r,a,a,a,a,r,r,r
+Logístico,Presencia de acompañante,r,a,a,a,r,r,r,r
+Logístico,Telemetria,r,a,a,a,r,a,r,r
+Logístico,Enganche y desenganche trailer,r,r,r,a,r,r,r,r
+Logístico,Otros,a,a,a,a,a,a,a,a
+Seguridad,Boton de panico,r,a,a,a,r,a,r,r
+Seguridad,Corte combustible/bloqueo motor,a,a,a,a,r,a,r,r
+Seguridad,Cerradura electromecanica puerta de carga,r,a,a,r,a,r,r,a
+Seguridad,Traba de rueda,r,r,r,a,r,r,r,r
+Seguridad,Varillas ventana,r,r,a,a,r,r,r,r
+Seguridad,Monitoreo & atencion de alarmas tercerizado,a,a,a,a,a,r,a,a
+Seguridad,Otros,a,a,a,a,a,a,a,a
+Control Temperatura,Sensor temperatura,r,r,a,a,a,r,a,r
+Control Temperatura,Sensor humedad,r,r,a,a,a,r,a,r
+Control Temperatura,Dataloger,r,r,a,a,a,r,a,r
+Video Abordo,Dashcam,r,a,a,a,r,a,r,r
+Video Abordo,Video monitoreo,r,a,a,a,a,a,r,r
+Video Abordo,Sistema ADAS,r,r,a,a,a,r,r,r
+Software,Seguimiento GPS en Tiempo real,a,a,a,a,a,a,a,a
+Software,Mantenimiento del vehiculo,a,a,a,a,a,a,a,a
+Software,Optimizacion de rutas,a,a,a,a,a,a,a,a
+Software,Confirmacion de tareas,a,a,a,a,a,a,a,a
+Software,Control de entregas,a,a,a,a,a,a,a,a

@@ -1,0 +1,29 @@
+CATEGORIA,SERVICIO
+Logístico,Seguimiento GPS en Tiempo real
+Logístico,Control de combustible
+Logístico,Conducta de manejo 
+Logístico,Identificacion conductor
+Logístico,Apertura de puertas laterales
+Logístico,Apertura de puerta de carga
+Logístico,Presencia de acompañante
+Logístico,Telemetria
+Logístico,Enganche y desenganche trailer
+Logístico,Otros
+Seguridad,Boton de panico
+Seguridad,Corte combustible/bloqueo motor
+Seguridad,Cerradura electromecanica puerta de carga
+Seguridad,Traba de rueda
+Seguridad,Varillas ventana
+Seguridad,Monitoreo & atencion de alarmas tercerizado
+Seguridad,Otros
+Control Temperatura,Sensor temperatura
+Control Temperatura,Sensor humedad
+Control Temperatura,Dataloger
+Video Abordo,Dashcam
+Video Abordo,Video monitoreo
+Video Abordo,Sistema ADAS
+Software,Mantenimiento del vehiculo
+Software,Optimizacion de rutas
+Software,Confirmacion de tareas
+Software,Control de entregas
+Software,Seguimiento GPS en Tiempo real
