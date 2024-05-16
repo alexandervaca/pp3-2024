@@ -659,6 +659,26 @@ progress {
 	color: white;
 }
 
+/* Estilo para las opciones de rastreo */
+.btn-group.group-radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn.btn-option {
+  background-color: #d8c6e5; /* Violeta pastel */
+  color: #6c757d; /* Texto gris */
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.btn-option:hover {
+  background-color: #bfa5d4; /* Violeta pastel más oscuro al pasar el mouse */
+}
 
 .btn-group.group-radios {
     position: relative;

@@ -20,6 +20,6 @@ def cotizar(request):
     context ={}
     return render(request, 'cotizador.html', context)
 
-def fin(request):
+def cotizacion(request):
     context = {}
-    return render(request, '6-resumen.html', context)
+    return render(request, 'cotizacion.html', context)

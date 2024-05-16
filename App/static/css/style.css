@@ -70,6 +70,15 @@ h2{
 
 
 /*form styles*/
+#msform .custom-fieldset {
+  /* Estilos personalizados para los fieldset dentro de #msform */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  /* Agrega aquí los estilos adicionales que desees aplicar a los fieldset */
+}
+
 #msform {
 	width: 800px;
 	margin: 50px auto;
@@ -188,53 +197,21 @@ h2{
 	color: white;
 }
 
-
-.btn-group.group-radios {
-    position: relative;
-    display: flex;
-    vertical-align: middle;
-    flex-wrap: wrap;
-		    width: 80%;
-    margin: auto;
+.option {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
 }
-
-
-
-.btn-outline-primary {
-  color: #626262;
-  border-color: #626262;
-  font-size: 16px;
-  margin: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-	border-radius: 0;
+.option:hover {
+  background-color: #d9d9d9;
 }
-
-.btn-outline-primary:hover {
-    color: #fff;
-    background-color: #692a7c;
-    border-color: #692a7c;
-	
+.option.selected {
+  background-color: #692a7c;
+  color: white;
 }
-
-.btn-outline-primary.btn-large  {
-  width:48%;
-	margin: 1%
-}
-.btn-outline-primary.btn-med  {
-  width:32%;
-	margin: 1%
-}
-
- 
-
-.btn-outline-primary:hover {
-    color: #fff;
-    background-color: #692a7c;
-    border-color: #692a7c;
-	
-}
-
 
 .btn-check:active+.btn-outline-primary, 
 .btn-check:checked+.btn-outline-primary, 
@@ -245,8 +222,6 @@ h2{
     background-color: #692a7c;
     border-color: #692a7c;
 }
-
-
 
 .content-guru {
 	width:100%;
@@ -408,14 +383,6 @@ h2{
 	        animation: ping 1.5s ease-in-out 0.5s infinite both;
 }
 
-
-
- 
- 
-
-
- 
- 
 @-webkit-keyframes ping {
   0% {
     -webkit-transform: scale(0.2);
@@ -451,7 +418,6 @@ h2{
   }
 }
 
-
 .caracteristicas {
 	display:none;
     margin: 30px 0;
@@ -461,8 +427,6 @@ h2{
 .caracteristicas.active {
     display: block;
 }
-
-
 
 @media screen and  (max-width:799px) { 
 	
@@ -531,7 +495,6 @@ h2{
     background-size: contain;
     overflow: hidden;
 }
-
 
 }
 

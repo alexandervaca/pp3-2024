@@ -66,8 +66,6 @@ $(".submit").click(function(){
 })
 
 
-
-
 $(function() {                     
   
 	$(".btn-log").click(function() {  
