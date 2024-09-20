@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %}
+
+{% block content %}
+<p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+
+
+<form id="msform" action="" method="post">{% csrf_token %}
+    {{ wizard.management_form }}
+    <ul id="progressbar">
+        <li class="active">
+            <span>Comencemos</span>
+        </li>
+        <li class="{% if wizard.steps.current >= '1' %}active{% endif %}">
+            <span>¿Qué?</span>
+        </li>
+        <li class="{% if wizard.steps.current >= '2' %}active{% endif %}">
+            <span>¿Cuántos?</span>
+        </li>
+        <li class="{% if wizard.steps.current >= '3' %}active{% endif %}">
+            <span>¿Cómo?</span>
+        </li>
+        <li class="{% if wizard.steps.current >= '4' %}active{% endif %}">
+            <span>¿Software?</span>
+        </li>
+        <li class="{% if wizard.steps.current >= '5' %}active{% endif %}">
+            <span>Fin</span>
+        </li>
+    </ul>
+
+    {% if wizard.steps.current == '0' %}
+    <!-- Contenido específico para el paso 1 -->
+    <h2 class="fs-title">¿Querés geolocalizar algo?</h2>
+    <h3 class="fs-subtitle">Respondé estas 4 preguntas rápidas y te daremos las mejores promociones del mercado.
+        El gurú te promete que no tardarás más de 1 minuto.</h3>
+    {{ wizard.form.as_table }} <!-- Muestra el formulario actual -->
+
+
+    {% elif wizard.steps.current == '1' %}
+    <!-- Contenido específico para el paso 2 -->
+    <h2 class="fs-title">¿Qué necesitas rastrear?</h2>
+    {{ wizard.management_form }}
+
+    <div class="options">
+        {% for vehiculo in form.vehiculo.field.queryset %}
+        <div class="option">
+            <input type="radio" id="vehiculo_{{ vehiculo.id }}" name="{{ form.vehiculo.html_name }}"
+                value="{{ vehiculo.id }}">
+            <label for="vehiculo_{{ vehiculo.id }}">{{ vehiculo }}</label>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if form.vehiculo.errors %}
+        <div class="alert alert-danger">
+            {% for error in form.vehiculo.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% elif wizard.steps.current == '2' %}
+    <!-- Contenido específico para el paso 3 -->
+    <h2 class="fs-title">¿Cuántos rastreadores necesitas?</h2>
+    {{ wizard.form.cantidad }}
+
+    </div>
+
+    {% elif wizard.steps.current == '3' %}
+    <!-- Contenido específico para el paso 4 -->
+    
+    <h2 class="fs-title">¿Qué servicio te interesa cotizar?</h2>
+    {{ wizard.management_form }}
+    
+    <div class="options" >
+        {% for categoria in form.categoria.field.queryset %}
+        <div class = "option">
+            <input type="radio" class="btn-check btn-log" id="btncheck{{ categoria.id }}" name="{{ form.categoria.name }}"
+            value="{{ categoria.id }}" autocomplete="off">
+            <label  for="btncheck{{ categoria.id }}">{{ categoria.descripcion }}</label>
+        </div>
+   
+    {% endfor %} 
+    </div>
+
+
+    <div id="servicios" class="caracteristicas">
+        <!-- Aquí se mostrarán dinámicamente los servicios basados en la categoría seleccionada -->
+    </div>
+    <script>
+        console.log("URL de fetch: {% url 'get_servicios_por_categoria' %}?categoria_id=" + categoriaId + "&vehiculo_id=" + vehiculoId);
+    </script>
+
+    </div>
+
+    
+
+    {% if form.categoria.errors %}
+        <div class="alert alert-danger">
+            {% for error in form.categoria.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% elif wizard.steps.current == '4' %}
+    <!-- Contenido específico para el paso 5 -->
+    <h2 class="fs-title">¿Necesitas algún software de gestión?</h2>
+    {{ wizard.management_form }}
+    <div class="options">
+        {% for value, label in form.software.field.choices %}
+        <div class="option">
+            <input type="radio" id="software_{{ value }}" name="{{ form.software.html_name }}"
+                value="{{ value }}" {% if form.software.value == value|stringformat:"s" %}checked{% endif %}>
+            <label for="software_{{ value }}">{{ label }}</label>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% elif wizard.steps.current == '5' %}
+    <!-- Contenido específico para el paso 5 -->
+    <div class="animacion-final"></div>
+    <div class="content-guru grande">
+        <div class="guru">
+        </div>
+    </div>
+    </div>
+
+    <h2 class="fs-title">Tengo la respuesta para vos.</h2>
+    <h3 class="fs-subtitle">Completá tus datos asi te enviamos la propuesta al email.</h3>
+    {{ wizard.management_form }}  <!-- Necesario para la correcta gestión del formset -->
+    
+    <div class="form-group">
+       
+        {{ wizard.form.tipo }}
+    </div>
+
+    <div class="form-group">
+        
+        {{ wizard.form.nombre }}
+    </div>
+
+    <div class="form-group">
+        {{ wizard.form.email }}
+    </div>
+
+    <div class="form-group">
+        {{ wizard.form.telefono }}
+    </div>
+
+    {% endif %}
+    <!-- Botones de navegación -->
+    <div>
+        {% if wizard.steps.prev %}
+        <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}"
+            class="action-button">ANTERIOR</button>
+        {% endif %}
+        <input type="submit" value="SIGUIENTE" class="action-button" />
+
+    </div>
+    {% if wizard.steps.current != '5' %}
+    <div class="content-guru">
+        <div class="guru">
+            <img src="{% static 'imagenes/guru-2.png' %}" class="">
+        </div>
+        <div class="guru-mje">
+            <div class="arrow_box">
+                {% if wizard.steps.current == '0' %}
+                <p>Voy a analizar tu solicitud y rápidamente te daré: empresas, promociones y oportunidades en
+                    el mundo del GPS y gestión de flotas.
+                    <br>Tu problema, resuelto.<br>
+                    Saludos de tu Gurú.
+                </p>
+                {% elif wizard.steps.current == '1' %}
+                <p>ATENCIÓN!!! Elige una categoría sola.<br>Si necesitas rastrear otro concepto, me puedes
+                    preguntar de nuevo. ¡Qué Gurú copado que soy!</p>
+                {% elif wizard.steps.current == '2' %}
+                <p>Mi número preferido es el 32.<br>Te lo digo para que nos vayamos conociendo un poquito
+                    más.<br>Si tenés que rastrear 32 cosas tal vez seamos almas gemelas.</p>
+                {% elif wizard.steps.current == '3' %}
+                <p>Podés marcar varias opciones.<br>Esto me ayuda a determinar cuál es el mejor curso de acción
+                    y puedo armar una solución para resolver tu problema.<br>¡Apa! No me tenías en gurú técnico.
+                    Te sorprendí.</p>
+                {% elif wizard.steps.current == '4' %}
+                <p>Geolocalizar es una cosa y gestionar los datos es otra. Tengo soluciones de todo tipo. ¿Te
+                    puedo ayudar con esto también?</p>
+                {% elif wizard.steps.current == '5' %}
+                <p>Voy a analizar tu solicitud y rápidamente te daré: empresas, promociones y oportunidades en
+                    el mundo del GPS y gestión de flotas.
+                    <br>Tu problema, resuelto.<br>
+                    Saludos de tu Gurú.
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</form>
+
+
+{% endblock %}

@@ -1,6 +1,10 @@
 /*custom font*/
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
+.option input[type="radio"] {
+  display: none;
+}
+
 /*basic reset*/
 * {margin: 0; padding: 0;}
 
@@ -268,7 +272,7 @@ h2{
   height: 250px;
   box-sizing: border-box;
  padding:25px;
- background:url("./imagenes/guru-big.png") center no-repeat;
+ /*background: url("../imagenes/guru-big.png") center no-repeat;*/
  background-size:contain;
   overflow: hidden;
 
@@ -342,7 +346,7 @@ h2{
   height: 350px;
   box-sizing: border-box;
  padding:25px;
- background:url("../imagenes/guru-big.png") center no-repeat;
+ /* background: url("../imagenes/guru-big.png") center no-repeat;*/
  background-size:contain;
   overflow: hidden;
 
@@ -491,7 +495,7 @@ h2{
     height: 300px;
     box-sizing: border-box;
     padding: 20px;
-    background: url("../imagenes/guru-big.png") center no-repeat;
+    /*background: url("../imagenes/guru-big.png") center no-repeat;*/
     background-size: contain;
     overflow: hidden;
 }

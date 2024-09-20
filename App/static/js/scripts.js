@@ -6,6 +6,21 @@
 //
 // Scripts
 // 
+document.querySelectorAll('.option').forEach(option => {
+    option.addEventListener('click', () => {
+        // Quitar la clase 'selected' de todas las opciones
+        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        
+        // Agregar la clase 'selected' a la opción clickeada
+        option.classList.add('selected');
+        
+        // Marcar el radio button correspondiente como seleccionado
+        const radio = option.querySelector('input[type="radio"]');
+        if (radio) {
+            radio.checked = true;
+        }
+    });
+});
 console.log("El documento JS esta cargado")
 
 

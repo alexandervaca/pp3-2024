@@ -49,7 +49,12 @@ class VehiculoServicio(models.Model):
         ordering = ['id']
 
 class Cliente(models.Model):
-    nombre   = models.CharField(max_length= 30, unique= True, verbose_name='Nombre', null= False)
+    tipo_choices = [
+        ('P', 'Particular'),
+        ('E', 'Empresa'),
+    ]
+    tipo     = models.CharField(max_length= 1, choices = tipo_choices, verbose_name='Tipo', null= False, default= 'P',)
+    nombre   = models.CharField(max_length= 30, unique= False, verbose_name='Nombre', null= False)
     email    = models.EmailField(max_length= 40, verbose_name='E-Mail', null= False, blank= False)
     telefono = models.CharField(max_length= 25, verbose_name='Teléfono', null= True, blank= True)
     def __str__(self):
@@ -65,7 +70,7 @@ class Cotizacion_cabecera(models.Model):
     idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, )
     fecha     = models.DateField( auto_now_add=True, null= True, verbose_name='Fecha',)
     def __str__(self):
-        return self.nombre
+        return self.id
     class Meta:
         db_table = 'cotizaciones_cab'
         verbose_name = 'Cotización cabecera'
@@ -81,7 +86,7 @@ class Cotizacion_linea(models.Model):
     precio_unitario     = models.DecimalField( decimal_places=2, max_digits=10, verbose_name='Precio x Unidad',)
     contacto            = models.BooleanField(default= False,verbose_name='Contacto' )
     def __str__(self):
-        return self.nombre
+        return self.id
     class Meta:
         db_table = 'cotizaciones_linea'
         verbose_name = 'Cotización linea'
