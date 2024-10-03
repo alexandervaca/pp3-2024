@@ -674,6 +674,8 @@ progress {
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 20px;
+  display: inline-block;
 }
 
 .btn.btn-option:hover {
@@ -966,7 +968,7 @@ progress {
 }
 
 .row {
-  --bs-gutter-x: 1.5rem;
+  --bs-gutter-x: 2.25rem;
   --bs-gutter-y: 0;
   display: flex;
   flex-wrap: wrap;
@@ -12870,7 +12872,7 @@ body {
 }
 
 .page-section {
-  padding: 8rem 0;
+  padding: 10rem 0;
 }
 
 .text-white-75 {
