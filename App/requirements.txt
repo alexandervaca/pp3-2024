@@ -1,2 +1,2 @@
 pillow 
-DJANGO==5.0.3pipen
+DJANGO==5.0.3

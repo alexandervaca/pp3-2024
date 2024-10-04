@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
+from .views import contact_view
 
 
 urlpatterns = [
@@ -25,6 +27,7 @@ urlpatterns = [
     path('', include('Cotizador.urls')),
     path('', include('Login.urls')),
     path('', include('Proveedores.urls')),
+    path('contact/', contact_view, name='contact'),
 ]
 
 if settings.DEBUG:
