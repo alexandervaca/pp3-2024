@@ -41,6 +41,7 @@ class ServicioInteresForm(forms.Form):
             print(f"Categorías filtradas por vehículo {vehiculo_id}: {categorias}")
             # Asignar queryset de categorías basado en el vehículo
             self.fields['categoria'].queryset = categorias
+            self.fields['vehiculo_id'].initial = vehiculo_id
         else:
             # Si no hay vehículo seleccionado, se deja el queryset vacío
             self.fields['categoria'].queryset = Categoria.objects.none()
@@ -84,7 +85,13 @@ class ServicioInteresForm(forms.Form):
         queryset=Servicio.objects.none(),  # Se llenará dinámicamente
         widget=forms.CheckboxSelectMultiple,
         label="¿Qué servicio te interesa cotizar?",
-        required=False
+        required=True
+    )
+
+    # Campo oculto para el vehículo
+    vehiculo_id = forms.IntegerField(
+        widget=forms.HiddenInput(attrs={'id': 'vehiculo_hidden', 'name': 'vehiculo_id'}),  # Campo oculto
+        required=False  # No requerido para que no falle la validación
     )
 
 #vehiculo_seleccionado = Vehiculo.objects.get(id=<id_del_vehiculo>)

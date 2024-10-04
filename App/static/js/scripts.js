@@ -21,7 +21,7 @@ document.querySelectorAll('.option').forEach(option => {
         }
     });
 });
-console.log("El documento JS esta cargado")
+console.log("El documento JS esta cargado");
 
 
 window.addEventListener('DOMContentLoaded', event => {

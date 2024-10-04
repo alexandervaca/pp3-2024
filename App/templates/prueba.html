@@ -77,6 +77,8 @@
     <h2 class="fs-title">¿Qué servicio te interesa cotizar?</h2>
     {{ wizard.management_form }}
     
+    {{ form.vehiculo_id }}
+
     <div class="options" >
         {% for categoria in form.categoria.field.queryset %}
         <div class = "option">
