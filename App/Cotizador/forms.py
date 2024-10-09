@@ -77,7 +77,7 @@ class ServicioInteresForm(forms.Form):
         queryset=Categoria.objects.none(),  # Se llenará dinámicamente
         label="Seleccione una categoría",
         widget=forms.RadioSelect,
-        required=True
+        required=False
     )
 
     # Campo para seleccionar uno o más servicios
@@ -85,7 +85,7 @@ class ServicioInteresForm(forms.Form):
         queryset=Servicio.objects.none(),  # Se llenará dinámicamente
         widget=forms.CheckboxSelectMultiple,
         label="¿Qué servicio te interesa cotizar?",
-        required=True
+        required=False
     )
 
     # Campo oculto para el vehículo
@@ -114,7 +114,7 @@ class SoftwareForm(forms.Form):
             # Filtrar servicios que están en la categoría 'Software'
             servicios_software = servicios.filter(
                 idCategoria__descripcion='Software' )
-                       
+
             # Crear un queryset con los servicios que pertenecen a la categoría 'Software'
             # Añadir la opción "Ninguno" al inicio de la lista de opciones
             self.fields['software'].choices = [(0, 'Ninguno')] + [(s.id, s.descripcion) for s in servicios_software]
