@@ -103,7 +103,11 @@ class SoftwareForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         vehiculo_id = kwargs.pop('vehiculo_id', None)
+
         super(SoftwareForm, self).__init__(*args, **kwargs)
+        
+
+        print(f"SoftwareForm vehiculo_id: {vehiculo_id}")
 
         if vehiculo_id:
             # Obtener los servicios asociados al vehículo
@@ -118,6 +122,12 @@ class SoftwareForm(forms.Form):
             # Crear un queryset con los servicios que pertenecen a la categoría 'Software'
             # Añadir la opción "Ninguno" al inicio de la lista de opciones
             self.fields['software'].choices = [(0, 'Ninguno')] + [(s.id, s.descripcion) for s in servicios_software]
+
+        #if 'categoria' in self.data:
+        servicios_software = Servicio.objects.filter(idCategoria__descripcion='Software')
+        print(f"servicios_software: { servicios_software }")
+        self.fields['software'].choices = [(0, 'Ninguno')] + [(s.id, s.descripcion) for s in servicios_software]
+
 
     def clean_software(self):
         data = self.cleaned_data['software']

@@ -11,6 +11,7 @@
 
 
 <form id="msform" action="" method="post">{% csrf_token %}
+    <fieldset style="display: block; left: 0%; opacity: 1;">
     {{ wizard.management_form }}
     <ul id="progressbar">
         <li class="active">
@@ -74,6 +75,7 @@
     {% elif wizard.steps.current == '3' %}
     <!-- Contenido específico para el paso 4 -->
     
+    
     <h2 class="fs-title">¿Qué servicio te interesa cotizar?</h2>
     {{ wizard.management_form }}
     
@@ -86,8 +88,7 @@
             value="{{ categoria.id }}" autocomplete="off">
             <label  for="btncheck{{ categoria.id }}">{{ categoria.descripcion }}</label>
         </div>
-   
-    {% endfor %} 
+        {% endfor %} 
     </div>
 
 
@@ -203,6 +204,7 @@
     </div>
     {% endif %}
 
+    </fieldset>
 </form>
 
 

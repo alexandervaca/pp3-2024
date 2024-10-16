@@ -19,8 +19,8 @@ from .forms import (
     DatosContactoForm
 )
 
-class PruebaWizard(SessionWizardView):
-    template_name = "prueba.html"
+class CotizacionWizard(SessionWizardView):
+    template_name = "cotizar.html"
     form_list = [
         GeolocalizarForm,
         QueRastrearForm,
@@ -35,8 +35,8 @@ class PruebaWizard(SessionWizardView):
         Modificar los kwargs que se pasan a los formularios del wizard.
         """
         # Llamar al método original para obtener los kwargs estándar
-        kwargs = super(PruebaWizard, self).get_form_kwargs(step)
-        
+        kwargs = super(CotizacionWizard, self).get_form_kwargs(step)
+        print(f"get_form_kwargs: step: { step }")
         # Obtener el vehículo seleccionado en un paso anterior (por ejemplo, en el paso 'CuantosForm')
         #print (step)
         if step == '3': #'ServicioInteresForm'
@@ -71,8 +71,26 @@ class PruebaWizard(SessionWizardView):
         return context    
 
     def done(self, form_list, **kwargs):
+        print("done")
         servicio_form_data = self.get_cleaned_data_for_step('3')
-        return print("hola") 
+        print(f"servicio_form_data {servicio_form_data}")
+
+
+        # para guardar el cliente en la BD
+        print(form_list)
+        datos_contacto_form = form_list[5]
+        
+        # Crear una nueva instancia del Cliente y guardarla en la base de datos
+        cliente = Cliente(
+            tipo=datos_contacto_form.cleaned_data['tipo'],
+            nombre=datos_contacto_form.cleaned_data['nombre'],
+            email=datos_contacto_form.cleaned_data['email'],
+            telefono=datos_contacto_form.cleaned_data['telefono']
+        )
+        cliente.save()
+        # para guardar el cliente en la BD 
+
+        return print("done return") 
 
 
 def get_servicios_por_categoria(request):
@@ -99,6 +117,7 @@ def get_servicios_por_categoria(request):
 def cotizar(request):
     #return render(request, 'hola')
     context ={}
+    print("cotizar")
     return render(request, 'cotizador.html', context)  
 
 
