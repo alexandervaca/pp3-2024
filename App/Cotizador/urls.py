@@ -12,4 +12,5 @@ urlpatterns = [
     #path('cotizar/', CotizacionWizard.as_view(), name='cotizacion_wizard'),
     path('prueba/', PruebaWizard.as_view() ),
     path('prueba/get-servicios/', get_servicios_por_categoria, name='get_servicios_por_categoria'),
+    path('fin/', views.fin, name='fin' ),
 ]
