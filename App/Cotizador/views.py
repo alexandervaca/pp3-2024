@@ -75,7 +75,6 @@ class CotizacionWizard(SessionWizardView):
         servicio_form_data = self.get_cleaned_data_for_step('3')
         print(f"servicio_form_data {servicio_form_data}")
 
-
         # para guardar el cliente en la BD
         print(form_list)
         datos_contacto_form = form_list[5]
@@ -90,8 +89,7 @@ class CotizacionWizard(SessionWizardView):
         cliente.save()
         # para guardar el cliente en la BD 
 
-        return print("done return") 
-
+        return render(self.request, 'cotizacion.html', {})
 
 def get_servicios_por_categoria(request):
     categoria_id = request.GET.get('categoria_id', None)

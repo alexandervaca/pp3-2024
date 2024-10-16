@@ -7,8 +7,6 @@
 {% endblock %}
 
 {% block content %}
-<p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-
 
 <form id="msform" action="" method="post">{% csrf_token %}
     <fieldset style="display: block; left: 0%; opacity: 1;">
