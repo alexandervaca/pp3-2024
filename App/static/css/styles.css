@@ -1,16 +1,5 @@
 @charset "UTF-8";
 
-/*!
-* Start Bootstrap - Creative v7.0.7 (https://startbootstrap.com/theme/creative)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-creative/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -12886,6 +12875,43 @@ body {
   text-transform: uppercase;
   border: none;
   border-radius: 10rem;
+}
+/*style de html fin*/
+.container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.guru-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.guru-image {
+  max-width: 300px;
+}
+
+.message-box {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #4b0082; /* Color púrpura para el texto */
+}
+
+.return-button {
+  background-color: #4b0082;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.return-button:hover {
+  background-color: #6a0dad;
 }
 
 hr.divider {

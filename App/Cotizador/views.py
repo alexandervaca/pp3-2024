@@ -132,3 +132,7 @@ def inicio(request):
 def cotizacion(request):
     context = {}
     return render(request, 'cotizacion.html', context)
+
+def fin(request):
+    context = {}
+    return render(request, 'fin.html', context)
