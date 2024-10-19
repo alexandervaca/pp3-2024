@@ -36,20 +36,29 @@ class CotizacionWizard(SessionWizardView):
         """
         # Llamar al método original para obtener los kwargs estándar
         kwargs = super(CotizacionWizard, self).get_form_kwargs(step)
-        print(f"get_form_kwargs: step: { step }")
+        #print(f"get_form_kwargs: step: { step }")
         # Obtener el vehículo seleccionado en un paso anterior (por ejemplo, en el paso 'CuantosForm')
         #print (step)
-        if step == '3': #'ServicioInteresForm'
+        if step == '3' or step == '4': #'ServicioInteresForm'
             #print ("paso 3")
             #print (kwargs)
                         
             vehiculo_form_data = self.get_cleaned_data_for_step('1')
-            print("hola")
+            #print("hola")
             
             if vehiculo_form_data:
-                vehiculo_id = vehiculo_form_data.get('vehiculo')  # Aquí debes ajustar 'vehiculo' según el nombre del campo en 'CuantosForm'
-                if vehiculo_id:
-                    kwargs['vehiculo_id'] = vehiculo_id.id
+                vehiculo = vehiculo_form_data.get('vehiculo')  # Aquí debes ajustar 'vehiculo' según el nombre del campo en 'CuantosForm'
+                if vehiculo:
+                    kwargs['vehiculo_id'] = vehiculo.id
+
+            if step == '4':
+                categoria_form_data = self.get_cleaned_data_for_step('3')
+                print(f"categoria_form_data: {categoria_form_data}")
+                if categoria_form_data:
+                    categoria = categoria_form_data.get('categoria')
+                    if categoria:
+                        kwargs['categoria_id'] = categoria.id
+
         '''
         elif step == '4': #SoftwareForm
             vehiculo_form_data = self.get_cleaned_data_for_step('1')
@@ -67,16 +76,32 @@ class CotizacionWizard(SessionWizardView):
         vehiculo_form_data = self.get_cleaned_data_for_step('1')
         if vehiculo_form_data:
             context['vehiculo_id'] = vehiculo_form_data.get('vehiculo').id
-
         return context    
 
     def done(self, form_list, **kwargs):
         print("done")
-        servicio_form_data = self.get_cleaned_data_for_step('3')
-        print(f"servicio_form_data {servicio_form_data}")
+        
+        vehiculo_data = self.get_cleaned_data_for_step('1')
+        vehiculo = vehiculo_data.get('vehiculo')
+        print(f"vehiculo.id: {vehiculo.id}")
 
+        cantidad_data = self.get_cleaned_data_for_step('2')
+        cantidad = cantidad_data.get('cantidad')
+        print(f"cantidad: {cantidad}")
+
+        servicio_data = self.get_cleaned_data_for_step('3')
+        servicio = servicio_data.get('servicio')
+        categoria = servicio_data.get('categoria')
+        print(f"servicio: {servicio}")
+        print(f"categoria: {categoria}")
+        print(f"servicio_data: {servicio_data}")
+
+        software_data = self.get_cleaned_data_for_step('4')
+        software = software_data.get('software')
+        print(f"software: {software}")
+
+        
         # para guardar el cliente en la BD
-        print(form_list)
         datos_contacto_form = form_list[5]
         
         # Crear una nueva instancia del Cliente y guardarla en la base de datos
