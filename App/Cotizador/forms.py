@@ -105,10 +105,7 @@ class SoftwareForm(forms.Form):
         vehiculo_id = kwargs.pop('vehiculo_id', None)
 
         super(SoftwareForm, self).__init__(*args, **kwargs)
-        
-
-        print(f"SoftwareForm vehiculo_id: {vehiculo_id}")
-
+        print(f'PASO SOFTWARE {vehiculo_id}')
         if vehiculo_id:
             # Obtener los servicios asociados al vehículo
             servicios = Servicio.objects.filter(
@@ -122,26 +119,29 @@ class SoftwareForm(forms.Form):
             # Crear un queryset con los servicios que pertenecen a la categoría 'Software'
             # Añadir la opción "Ninguno" al inicio de la lista de opciones
             self.fields['software'].choices = [(0, 'Ninguno')] + [(s.id, s.descripcion) for s in servicios_software]
-
-        #if 'categoria' in self.data:
-        servicios_software = Servicio.objects.filter(idCategoria__descripcion='Software')
+        else:
+            servicios_software = Servicio.objects.filter(idCategoria__descripcion='Software')
         print(f"servicios_software: { servicios_software }")
         self.fields['software'].choices = [(0, 'Ninguno')] + [(s.id, s.descripcion) for s in servicios_software]
 
 
     def clean_software(self):
-        data = self.cleaned_data['software']
-        
-        # Si el valor "Ninguno" (0) está seleccionado, limpiar el campo
-        if data == 0:
-            return []  # Retornar una lista vacía para indicar que no se seleccionó ningún servicio
-        
+        data = self.cleaned_data.get('software', [])
+    
+        # Si "Ninguno" está seleccionado, limpiar el campo
+        if 0 in data:
+            return []  # Retornar una lista vacía para indicar que no se seleccionó ningún software
+
+        # Verificar si al menos un software ha sido seleccionado
+        if not data:
+            raise forms.ValidationError("Debes seleccionar al menos un software de gestión.")  # Mensaje de error si no se selecciona nada
+    
         return data
 
-    software = forms.ChoiceField(
+    software = forms.MultipleChoiceField(
         #queryset=Servicio.objects.none(),  # Se actualizará dinámicamente
         choices=[],  # Se llenará dinámicamente
-        widget=forms.RadioSelect,
+        widget=forms.CheckboxSelectMultiple,
         label="¿Necesitas algún software de gestión?"
     )
 

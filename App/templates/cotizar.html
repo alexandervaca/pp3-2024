@@ -110,19 +110,21 @@
     {% endif %}
 
     {% elif wizard.steps.current == '4' %}
-    <!-- Contenido específico para el paso 5 -->
-    <h2 class="fs-title">¿Necesitas algún software de gestión?</h2>
-    {{ wizard.management_form }}
-    <div class="options">
-        {% for value, label in form.software.field.choices %}
-        <div class="option">
-            <input type="radio" id="software_{{ value }}" name="{{ form.software.html_name }}"
-                value="{{ value }}" {% if form.software.value == value|stringformat:"s" %}checked{% endif %}>
-            <label for="software_{{ value }}">{{ label }}</label>
+        <!-- Contenido específico para el paso 5 -->
+        <h2 class="fs-title">¿Necesitas algún software de gestión?</h2>
+        {{ wizard.management_form }}
+        <div class="options">
+            {{ form.software }}
         </div>
-        {% endfor %}
-    </div>
-
+        {% if form.software.errors %}
+            <div class="error-messages">
+                <ul>
+                    {% for error in form.software.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+    {% endif %}
     {% elif wizard.steps.current == '5' %}
     <!-- Contenido específico para el paso 5 -->
     <div class="animacion-final"></div>

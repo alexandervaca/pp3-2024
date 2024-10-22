@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from .forms import ContactForm
+from django.shortcuts import redirect
 
 def contact_view(request):
     if request.method == 'POST':

@@ -3,6 +3,8 @@ from . import views
 from django.contrib.auth import views as auth_views
 from .views import CotizacionWizard
 from .views import get_servicios_por_categoria
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -14,3 +16,6 @@ urlpatterns = [
     path('cotizar/get-servicios/', get_servicios_por_categoria, name='get_servicios_por_categoria'),
     path('fin/', views.fin, name='fin' )
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
