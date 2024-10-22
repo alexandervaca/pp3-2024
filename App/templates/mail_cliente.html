@@ -1,0 +1,58 @@
+{% extends "base_cotizacion.html" %}
+{% load static %}
+{% load humanize %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    <div class="cotizacion-container">
+        <h1 class="final-title">Estimad@ {{ cliente.nombre }}</h1>
+
+        <p class="proveedores-text">Tu selección para cotizar ha sido:</p>
+        <ul class="section-title">
+            <li><strong>Vehículo:</strong> {{ vehiculo.descripcion }} </li>
+            <li><strong>Cantidad:</strong> {{ cantidad }}</li>
+        </ul>
+
+        <div class="proveedores-text">Dentro de la categoría <strong>{{ categoria.descripcion }}</strong>, elegiste los siguientes servicios:</div>
+        <ul class="section-title">
+            {% for servicio in servicios %}
+            <li>{{ servicio.descripcion }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if software %}
+        <div class="proveedores-text">En software seleccionaste lo siguiente:</div>
+        <ul  class="section-title">
+            {% for sw in software %}
+            <li><strong>{{ sw.descripcion }}</strong></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="proveedores-text">Tu cotización es la siguiente:</div>
+        
+        <div>
+            {% for total in total_por_proveedor %}
+            <div class="proveedor-box">
+                <p><strong>{{ total.empresa }}</strong></p>
+                <p class="provider-price">${{ total.total }}</p>
+                <a href="{{ total.web }}" target="_blank">web</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="footer-notes">
+            <span>*Los precios incluyen impuestos.</span>
+            <span>**La cotización es válida por 5 días a partir de su emisión.</span>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
+{% endblock %}

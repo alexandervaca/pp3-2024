@@ -9,6 +9,7 @@ from django.contrib.auth import  authenticate, login, logout
 from django.http import HttpResponse
 from formtools.wizard.views import SessionWizardView
 from .models import *
+from .utils import *
 from django.http import JsonResponse
 from .forms import (
     GeolocalizarForm,
@@ -34,10 +35,10 @@ class CotizacionWizard(SessionWizardView):
         """
         Modificar los kwargs que se pasan a los formularios del wizard.
         """
-        # Llamar al método original para obtener los kwargs estándar
+        # Llamar al metodo original para obtener los kwargs estandar
         kwargs = super(CotizacionWizard, self).get_form_kwargs(step)
         #print(f"get_form_kwargs: step: { step }")
-        # Obtener el vehículo seleccionado en un paso anterior (por ejemplo, en el paso 'CuantosForm')
+        # Obtener el vehiculo seleccionado en un paso anterior (por ejemplo, en el paso 'CuantosForm')
         #print (step)
         if step == '3' or step == '4': #'ServicioInteresForm'
             #print ("paso 3")
@@ -47,7 +48,7 @@ class CotizacionWizard(SessionWizardView):
             #print("hola")
             
             if vehiculo_form_data:
-                vehiculo = vehiculo_form_data.get('vehiculo')  # Aquí debes ajustar 'vehiculo' según el nombre del campo en 'CuantosForm'
+                vehiculo = vehiculo_form_data.get('vehiculo')  # Aqui debes ajustar 'vehiculo' segun el nombre del campo en 'CuantosForm'
                 if vehiculo:
                     kwargs['vehiculo_id'] = vehiculo.id
 
@@ -58,6 +59,24 @@ class CotizacionWizard(SessionWizardView):
                     categoria = categoria_form_data.get('categoria')
                     if categoria:
                         kwargs['categoria_id'] = categoria.id
+
+                vehiculo_id = vehiculo_form_data.get('vehiculo')  # Aqui debes ajustar 'vehiculo' segun el nombre del campo en 'CuantosForm'
+                if vehiculo_id:
+                    kwargs['vehiculo_id'] = vehiculo_id.id
+        
+        elif step == '4':
+            servicio_interes_data = self.get_cleaned_data_for_step('3')  
+            print (servicio_interes_data)
+
+            #Vehiculo
+            #vehiculo = servicio_interes_data.get('vehiculo_id')
+            #Categoria 
+            #categoria = servicio_interes_data.get('categoria')
+            #Servicios
+            #servicios = servicio_interes_data.get('servicio')
+            #print(f"Vehiculo: {vehiculo}")
+            #print(f"Categoria: {categoria}")
+            #print(f"Servicios: {servicios}")
 
         '''
         elif step == '4': #SoftwareForm
@@ -72,58 +91,81 @@ class CotizacionWizard(SessionWizardView):
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form=form, **kwargs)
         
-        # Asegurarse de pasar el vehículo seleccionado al contexto
-        vehiculo_form_data = self.get_cleaned_data_for_step('1')
+        # Asegurarse de pasar el vehiculo seleccionado al contexto
+        vehiculo_form_data = self.get_cleaned_data_for_step('4')
         if vehiculo_form_data:
             context['vehiculo_id'] = vehiculo_form_data.get('vehiculo').id
         return context    
 
     def done(self, form_list, **kwargs):
-        print("done")
-        
-        vehiculo_data = self.get_cleaned_data_for_step('1')
+        # Recorre cada paso y extrae los datos de cada formulario
+        for step, form in enumerate(form_list):
+            print(f"Datos del paso {step}: {form.cleaned_data}")
+
+        #Creacion/obtencion del cliente
+        datos_contacto_data = self.get_cleaned_data_for_step('5')  # Paso 6: DatosContactoForm
+        # Llamar a la funcion que crea o actualiza el cliente
+        cliente = obtener_o_crear_cliente(datos_contacto_data)
+
+        #Obtencion de datos necesarios para la cotizacion
+        vehiculo_data         = self.get_cleaned_data_for_step('1')
+        cuantos_data          = self.get_cleaned_data_for_step('2')  # Paso 3: CuantosForm
+        servicio_interes_data = self.get_cleaned_data_for_step('3')  # Paso 4: ServicioInteresForm
+        software_data         = self.get_cleaned_data_for_step('4')  # Paso 5: SoftwareForm
+        #Cantidad
+        cantidad = cuantos_data.get('cantidad')
+        #Vehiculo
         vehiculo = vehiculo_data.get('vehiculo')
-        print(f"vehiculo.id: {vehiculo.id}")
+        #Categoria 
+        categoria = servicio_interes_data.get('categoria')
+        #Servicios
+        servicios = servicio_interes_data.get('servicio')
+        #Software
+        software_ids = software_data.get('software')
+        software = Servicio.objects.filter(id__in=software_ids)
 
-        cantidad_data = self.get_cleaned_data_for_step('2')
-        cantidad = cantidad_data.get('cantidad')
-        print(f"cantidad: {cantidad}")
 
-        servicio_data = self.get_cleaned_data_for_step('3')
-        servicio = servicio_data.get('servicio')
-        categoria = servicio_data.get('categoria')
-        print(f"servicio: {servicio}")
-        print(f"categoria: {categoria}")
-        print(f"servicio_data: {servicio_data}")
+        print(f"Cantidad: {cantidad}")
+        print(f"Vehículo: {vehiculo}")
+        print(f"Categoría: {categoria}")
+        print(f"Servicios: {servicios}")
+        print(f"Software: {software}")
+        print (f"Paso 3: {servicio_interes_data}")
 
-        software_data = self.get_cleaned_data_for_step('4')
-        software = software_data.get('software')
-        print(f"software: {software}")
 
-        
-        # para guardar el cliente en la BD
-        datos_contacto_form = form_list[5]
-        
-        # Crear una nueva instancia del Cliente y guardarla en la base de datos
-        cliente = Cliente(
-            tipo=datos_contacto_form.cleaned_data['tipo'],
-            nombre=datos_contacto_form.cleaned_data['nombre'],
-            email=datos_contacto_form.cleaned_data['email'],
-            telefono=datos_contacto_form.cleaned_data['telefono']
-        )
-        cliente.save()
-        # para guardar el cliente en la BD 
 
-        return render(self.request, 'cotizacion.html', {})
+        #Clase Cotizacion - crea instancia
+        cotizacion = Cotizacion(cantidad, vehiculo, categoria, servicios, software, cliente)
+        # Calcular total por proveedor
+        total_por_proveedor = cotizacion.calcular_total_por_proveedor()
+        #print("Total por proveedor:", total_por_proveedor)  # Para verificar en la consola
+        # Guardar la cotizacion
+        cotizacion_cabecera = cotizacion.guardar_cotizacion()        
+
+        contexto = {
+            'cliente': cliente,
+            'vehiculo': vehiculo,
+            'cantidad': cantidad,
+            'categoria':categoria,
+            'servicios':servicios,
+            'software':software,
+            'total_por_proveedor':total_por_proveedor,
+            'cotizacion_cabecera':cotizacion_cabecera,
+        }
+
+        # Llamar a la funcion para enviar el correo
+        enviar_cotizacion_cliente(contexto)
+
+        return render(self.request, 'cotizacion.html', contexto)
 
 def get_servicios_por_categoria(request):
     categoria_id = request.GET.get('categoria_id', None)
-    vehiculo_id = request.GET.get('vehiculo_id', None)  # Asegúrate de tener el vehículo si es necesario
+    vehiculo_id = request.GET.get('vehiculo_id', None)  # Asegurate de tener el vehiculo si es necesario
 
     if categoria_id:
         servicios = Servicio.objects.filter(idCategoria=categoria_id)
 
-        # Si necesitas filtrar también por vehículo:
+        # Si necesitas filtrar tambien por vehiculo:
         if vehiculo_id:
             servicios = servicios.filter(vehiculoservicio__Vehiculo=vehiculo_id)
 
@@ -136,21 +178,14 @@ def get_servicios_por_categoria(request):
 
 
 
-# Create your views here.
 def cotizar(request):
-    #return render(request, 'hola')
     context ={}
     print("cotizar")
     return render(request, 'cotizador.html', context)  
 
-
-# Create your views here.
 def inicio(request):
-    #return render(request, 'hola')
     context ={}
     return render(request, '0-inicio.html', context)  
-
-
 
 def cotizacion(request):
     context = {}

@@ -73,7 +73,7 @@ class Cotizaciones_LineaAdmin(admin.ModelAdmin):
 
 @admin.register(Tarifa)
 class TarifaAdmin(admin.ModelAdmin):
-    list_display=('id','idVechiculoServicio', 'idProveedor', 'precio_unitario')
-    search_fields=('idVechiculoServicio', 'idProveedor',)
-    list_display_links=('id',)    
-    list_filter=('idVechiculoServicio', 'idProveedor',)
+    list_display = ('id', 'idVechiculoServicio', 'idProveedor', 'precio_unitario')
+    search_fields = ('idVechiculoServicio__Vehiculo__descripcion', 'idProveedor__empresa', 'idVechiculoServicio__Servicio__descripcion',)
+    list_display_links = ('id',)    
+    list_filter = ( 'idProveedor',)
