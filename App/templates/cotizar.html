@@ -68,7 +68,6 @@
     <h2 class="fs-title">¿Cuántos rastreadores necesitas?</h2>
     {{ wizard.form.cantidad }}
 
-    </div>
 
     {% elif wizard.steps.current == '3' %}
     <!-- Contenido específico para el paso 4 -->
@@ -78,6 +77,8 @@
     {{ wizard.management_form }}
     
     {{ form.vehiculo_id }}
+
+    {{ form.categoria_id }}
 
     <div class="options" >
         {% for categoria in form.categoria.field.queryset %}
@@ -89,16 +90,14 @@
         {% endfor %} 
     </div>
 
+    {{ form.servicio }}
 
-    <div id="servicios" class="caracteristicas">
-        <!-- Aquí se mostrarán dinámicamente los servicios basados en la categoría seleccionada -->
+    <!-- Aquí se mostrarán dinámicamente los servicios basados en la categoría seleccionada -->
+    <div id="id_3-servicio" class="caracteristicas">
     </div>
     <script>
         console.log("URL de fetch: {% url 'get_servicios_por_categoria' %}?categoria_id=" + categoriaId + "&vehiculo_id=" + vehiculoId);
     </script>
-
-    </div>
-
     
 
     {% if form.categoria.errors %}
@@ -128,10 +127,9 @@
     {% elif wizard.steps.current == '5' %}
     <!-- Contenido específico para el paso 5 -->
     <div class="animacion-final"></div>
-    <div class="content-guru grande">
-        <div class="guru">
+        <div class="content-guru grande">
+            <div class="guru"></div>
         </div>
-    </div>
     </div>
 
     <h2 class="fs-title">Tengo la respuesta para vos.</h2>
@@ -139,12 +137,10 @@
     {{ wizard.management_form }}  <!-- Necesario para la correcta gestión del formset -->
     
     <div class="form-group">
-       
         {{ wizard.form.tipo }}
     </div>
 
     <div class="form-group">
-        
         {{ wizard.form.nombre }}
     </div>
 
@@ -164,7 +160,6 @@
             class="action-button">ANTERIOR</button>
         {% endif %}
         <input type="submit" value="SIGUIENTE" class="action-button" />
-
     </div>
     {% if wizard.steps.current != '5' %}
     <div class="content-guru">

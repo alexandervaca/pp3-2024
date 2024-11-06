@@ -14,8 +14,8 @@ class Categoria(models.Model):
         ordering = ['id']
 
 class Servicio(models.Model):
-    idCategoria    = models.ForeignKey(Categoria, on_delete=models.CASCADE, )
-    descripcion =  models.CharField(max_length= 60, unique= False, verbose_name='Servicio', null= False)
+    idCategoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, )
+    descripcion = models.CharField(max_length= 60, unique= False, verbose_name='Servicio', null= False)
     def __str__(self):
         return self.descripcion
         #return self.idCategoria, '-',  self.descripcion

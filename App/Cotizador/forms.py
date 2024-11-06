@@ -46,12 +46,13 @@ class ServicioInteresForm(forms.Form):
             self.fields['categoria'].queryset = Categoria.objects.none()
 
         # Inicialmente, no se muestran servicios hasta que se seleccione una categoria
-        self.fields['servicio'].queryset = Servicio.objects.none()
+        #self.fields['servicio'].queryset = Servicio.objects.none()
 
         # Si hay datos de POST (cuando el formulario se envia), actualizar los servicios en funcion de la categoria elegida
         
         if 'categoria' in self.data:
             try:
+                #print(f"self.data: {self.data}")
                 categoria_id = int(self.data.get('categoria'))
                 print(f"Categoría seleccionada: {categoria_id}")
                  # Filtrar los servicios para la categoria seleccionada y el vehiculo
@@ -60,9 +61,9 @@ class ServicioInteresForm(forms.Form):
                     vehiculoservicio__Vehiculo=vehiculo_id
                 ).exclude(idCategoria__descripcion="Software")
 
-                print(f"Servicios disponibles para la categoría {categoria_id}:")
-                for servicio in servicios:
-                    print(f"- {servicio.descripcion} (ID: {servicio.id})")
+                #print(f"Servicios disponibles para la categoría {categoria_id}:")
+                #for servicio in servicios:
+                #    print(f"- {servicio.descripcion} (ID: {servicio.id})")
 
                 self.fields['servicio'].queryset = servicios
 
@@ -79,12 +80,18 @@ class ServicioInteresForm(forms.Form):
         required=False
     )
 
-    # Campo para seleccionar uno o mas servicios
+    # Campo para seleccionar uno o mas servicios CheckboxSelectMultiple
     servicio = forms.ModelMultipleChoiceField(
         queryset=Servicio.objects.none(),  # Se llenara dinamicamente
         widget=forms.CheckboxSelectMultiple,
         label="¿Qué servicio te interesa cotizar?",
         required=False
+    )
+
+    # Campo oculto para el vehiculo
+    categoria_id = forms.IntegerField(
+        widget=forms.HiddenInput(attrs={'id': 'categoria_hidden', 'name': 'categoria_id'}),  # Campo oculto
+        required=False  # No requerido para que no falle la validación
     )
 
     # Campo oculto para el vehiculo
@@ -102,10 +109,14 @@ class SoftwareForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         vehiculo_id = kwargs.pop('vehiculo_id', None)
+        categoria_id = kwargs.pop('categoria_id', None)
+        servicio = kwargs.pop('servicio', None)
 
         super(SoftwareForm, self).__init__(*args, **kwargs)
 
         print(f'PASO SOFTWARE {vehiculo_id}')
+        print(f'PASO SOFTWARE {categoria_id}')
+        print(f'PASO SOFTWARE {servicio}')
 
         if vehiculo_id:
             # Obtener los servicios asociados al vehiculo
@@ -123,7 +134,7 @@ class SoftwareForm(forms.Form):
         else:
             servicios_software = Servicio.objects.filter(idCategoria__descripcion='Software')
 
-        print(f"servicios_software: { servicios_software }")
+        #print(f"servicios_software: { servicios_software }")
         self.fields['software'].choices = [(0, 'Ninguno')] + [(s.id, s.descripcion) for s in servicios_software]
 
 

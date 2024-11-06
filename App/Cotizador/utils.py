@@ -72,9 +72,11 @@ class Cotizacion:
         """
         tarifas = []
         for servicio in self.servicios:
+            print(f"obtener_tarifas servicio: {servicio}")
             tarifas_query = Tarifa.objects.filter(
                 idVechiculoServicio__Vehiculo=self.vehiculo,
-                idProveedor=servicio.idProveedor  # Asumiendo que `servicio` tiene un atributo `idProveedor`
+                idVechiculoServicio__Servicio=servicio.id
+                #$idProveedor=servicio.idProveedor  # Asumiendo que `servicio` tiene un atributo `idProveedor`
             )
             tarifas.extend(tarifas_query)
         

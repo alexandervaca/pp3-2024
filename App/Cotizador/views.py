@@ -48,6 +48,7 @@ class CotizacionWizard(SessionWizardView):
             #print("hola")
             
             if vehiculo_form_data:
+                print(f"vehiculo_form_data: {vehiculo_form_data}")
                 vehiculo = vehiculo_form_data.get('vehiculo')  # Aqui debes ajustar 'vehiculo' segun el nombre del campo en 'CuantosForm'
                 if vehiculo:
                     kwargs['vehiculo_id'] = vehiculo.id
@@ -56,17 +57,15 @@ class CotizacionWizard(SessionWizardView):
                 categoria_form_data = self.get_cleaned_data_for_step('3')
                 print(f"categoria_form_data: {categoria_form_data}")
                 if categoria_form_data:
-                    categoria = categoria_form_data.get('categoria')
-                    if categoria:
-                        kwargs['categoria_id'] = categoria.id
+                    categoria_id = categoria_form_data.get('categoria_id')
+                    print(f"categoria_id: {categoria_id}")
+                    if categoria_id:
+                        kwargs['categoria_id'] = categoria_id
 
-                vehiculo_id = vehiculo_form_data.get('vehiculo')  # Aqui debes ajustar 'vehiculo' segun el nombre del campo en 'CuantosForm'
-                if vehiculo_id:
-                    kwargs['vehiculo_id'] = vehiculo_id.id
-        
-        elif step == '4':
-            servicio_interes_data = self.get_cleaned_data_for_step('3')  
-            print (servicio_interes_data)
+                #vehiculo_id = vehiculo_form_data.get('vehiculo')  # Aqui debes ajustar 'vehiculo' segun el nombre del campo en 'CuantosForm'
+                #if vehiculo_id:
+                #    kwargs['vehiculo_id'] = vehiculo_id.id
+
 
             #Vehiculo
             #vehiculo = servicio_interes_data.get('vehiculo_id')
@@ -92,7 +91,8 @@ class CotizacionWizard(SessionWizardView):
         context = super().get_context_data(form=form, **kwargs)
         
         # Asegurarse de pasar el vehiculo seleccionado al contexto
-        vehiculo_form_data = self.get_cleaned_data_for_step('4')
+        vehiculo_form_data = self.get_cleaned_data_for_step('1')
+        print(f"vehiculo_form_data 1: {vehiculo_form_data}")
         if vehiculo_form_data:
             context['vehiculo_id'] = vehiculo_form_data.get('vehiculo').id
         return context    
@@ -117,7 +117,7 @@ class CotizacionWizard(SessionWizardView):
         #Vehiculo
         vehiculo = vehiculo_data.get('vehiculo')
         #Categoria 
-        categoria = servicio_interes_data.get('categoria')
+        categoria = servicio_interes_data.get('categoria_id')
         #Servicios
         servicios = servicio_interes_data.get('servicio')
         #Software
