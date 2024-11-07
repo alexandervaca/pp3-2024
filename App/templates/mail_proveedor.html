@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TUM GURÚ - Cotización</title>
+	 <!-- Favicon-->
+	 <link rel="icon" type="image/x-icon" href="{% static 'imagenes/guru-big.png' %}"/>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="{% static 'css/all.css.' %}">
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="{% static 'css/css2.css.' %}">
+	<!-- Bootstrap CSS -->
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Cotización para Proveedor</title>
+    <style>
+        /* Estilos mejorados */
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .cotizacion-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .final-title {
+            font-size: 26px;
+            color: #7f4399;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+            color: #555;
+            margin-top: 5px;
+        }
+        .contact-info div {
+            background-color: #f0f0f5;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .section-title-heading {
+            color: #fa560a;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            text-align: left;
+        }
+        .proveedores-text, .section-title {
+            color: #555;
+            text-align: left;
+            font-size: 16px;
+        }
+        .section-title {
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .section-title li {
+            margin-bottom: 8px;
+            background-color: #f0f0f5;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .footer-notes {
+            font-size: 12px;
+            color: #8B0000;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .footer-notes span {
+            display: block;
+            margin-top: 5px;
+            
+        }
+    </style>
+</head>
+<body>
+
+<div class="cotizacion-container">
+    <h2 class="final-title">Estimad@ {{ proveedor.nombre }}</h2><br>
+    <p>Has sido seleccionad@ para contacto por el cliente:</p> <br>
+    <p><strong>{{ cliente.nombre }}</strong></p>
+
+    <div class="contact-info">
+        <div><strong>Email: cliente@gmail.com</strong> {{ cliente.email }}</div>
+        <div><strong>Celular:11 5467-8899</strong> {{ cliente.celular }}</div>
+    </div>
+
+    <div class="proveedores-text">
+        <p class="section-title-heading">Detalles de la cotización:</p>
+        <ul class="section-title">
+            <li><strong>Vehículo:</strong> {{ vehiculo.descripcion }}</li>
+            <li><strong>Cantidad:</strong> {{ cantidad }}</li>
+        </ul>
+
+        <p class="section-title-heading">Categoría elegida: <strong>{{ categoria.descripcion }}</strong>, con los siguientes servicios:</p>
+        <ul class="section-title">
+            {% for servicio in servicios %}
+            <li>{{ servicio.descripcion }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if software %}
+        <p class="section-title-heading">Software seleccionado:</p>
+        <ul class="section-title">
+            {% for sw in software %}
+            <li>{{ sw.descripcion }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    
+    <div class="footer-notes">
+        <span>* Los precios incluyen impuestos.</span>
+        <span>** La cotización es válida por 5 días a partir de su emisión.</span>
+    </div>
+</div>
+
+</body>
+</html>

@@ -151,7 +151,6 @@ def inicio(request):
     return render(request, '0-inicio.html', context)  
 
 
-
 def cotizacion(request):
     context = {}
     return render(request, 'cotizacion.html', context)
@@ -159,3 +158,19 @@ def cotizacion(request):
 def fin(request):
     context = {}
     return render(request, 'fin.html', context)
+
+# En views.py
+from django.shortcuts import render
+
+def mail_proveedor(request):
+    # Datos de ejemplo
+    context = {
+        'proveedor': {'nombre': 'Proveedor Ejemplo'},
+        'cliente': {'nombre': 'Cliente Ejemplo'},
+        'vehiculo': {'descripcion': 'Auto'},
+        'cantidad': 1,
+        'categoria': {'descripcion': 'Rastreo Vehicular'},
+        'servicios': [{'descripcion': 'GPS'}, {'descripcion': 'Monitoreo en tiempo real'}],
+        'software': [{'descripcion': 'Gestión de Flotas'}]
+    }
+    return render(request, 'mail_proveedor.html', context)

@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views # Importa el módulo de vistas
 from django.contrib.auth import views as auth_views
 from .views import CotizacionWizard
 from .views import get_servicios_por_categoria
@@ -12,5 +12,6 @@ urlpatterns = [
     #path('cotizar/', CotizacionWizard.as_view(), name='cotizacion_wizard'),
     path('cotizar/', CotizacionWizard.as_view(), name='cotizar' ),
     path('cotizar/get-servicios/', get_servicios_por_categoria, name='get_servicios_por_categoria'),
-    path('fin/', views.fin, name='fin' )
+    path('fin/', views.fin, name='fin' ),
+    path('mail_proveedor/', views.mail_proveedor, name='mail_proveedor'),  # Define la ruta
 ]
