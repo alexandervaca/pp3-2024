@@ -84,32 +84,31 @@ class Cotizacion:
         if self.software:
             for soft in self.software:
                 tarifas_software = Tarifa.objects.filter(idVechiculoServicio__Servicio__id=soft.id)
-                tarifas.extend(tarifas_software)
+                tarifas.extend(tarifas_software) 
 
         return tarifas
     
     def calcular_total_por_proveedor(self):
-        total_por_proveedor = []
+        total_por_proveedor = [] #Lista en la que se guardará la información procesada.
 
         # Diccionario temporal para acumular los totales por proveedor
         totales = {}
 
+        #Se recorren las tarifas obtenidas en base a la selección que hizo el cliente en el Wizard
         for tarifa in self.tarifas:
-            proveedor = tarifa.idProveedor  
-            monto = tarifa.precio_unitario
+            proveedor = tarifa.idProveedor  #Guardamos el proveedor
+            monto = tarifa.precio_unitario  #Almacenamos el precio unitario
 
-            # Si la tarifa pertenece a software, no multiplicar por cantidad
+            # Si la tarifa pertenece a software, no se multiplica por cantidad de vehículos
             if tarifa.idVechiculoServicio.Servicio.idCategoria == self.software:
                 cantidad_a_sumar = 1  # No multiplicar
             else:
                 cantidad_a_sumar = self.cantidad  # Multiplicar por la cantidad
 
            # Acumular el total por proveedor
-            if proveedor.id in totales:
+            if proveedor.id in totales: #Si ya se almacenó el proveedor suma
                 totales[proveedor.id]['total'] += monto * cantidad_a_sumar
-            else:
-                #print(f'proveedor.logo.url: {proveedor.logo.url }')
-                #print(f'proveedor.logo: {proveedor.logo}')
+            else: #Sino,
                 totales[proveedor.id] = {
                     'id': proveedor.id,
                     'empresa': proveedor.empresa,
@@ -118,8 +117,7 @@ class Cotizacion:
                     'web': proveedor.web,
                     'total': monto * cantidad_a_sumar
                 }
-
-        # Convertir el diccionario en un array de diccionarios
+        # Se convierte el diccionario en un array de diccionarios
         for proveedor_id, data in totales.items():
             total_por_proveedor.append(data)
 
@@ -131,7 +129,8 @@ class Cotizacion:
             idCliente=self.cliente
         )
         
-        # Guardar líneas de cotización
+        # Guarda líneas de cotización
+        #Se recorren las tarifas obtenidas en base a la selección que hizo el cliente en el Wizard
         for tarifa in self.tarifas:
             Cotizacion_linea.objects.create(
                 idCoticazion_cab=cotizacion_cabecera,
@@ -145,7 +144,7 @@ class Cotizacion:
         return cotizacion_cabecera  # Devolver la cabecera para referencia futura
     
 def enviar_cotizacion_cliente(contexto):
-    # Hacer una copia profunda del contexto para no modificar el original
+    # Hace una copia profunda del contexto para no modificar el original
     contexto2 = copy.deepcopy(contexto)
    
     # Configura los parámetros del correo

@@ -1,0 +1,74 @@
+{% extends "base_login.html" %}
+{% load static %}
+{% block head %}
+{% endblock %}
+{% block titulo %} Registrarse {% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center pt-5">
+        <div class="col-md-4 formulario">
+            <div class="input-group mb-2 justify-content-center ">
+                <div class="input-group-append justify-content-center ">
+                    <img src={% static 'imagenes/Logo-grey.png' %} class="img-fluid " alt="" srcset="" width=40%;
+                        height=auto></i>
+                </div>
+                <h2>Registrarse</h2>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="input-group mb-2 justify-content-center ">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        {{form.username}}
+                    </div>
+                    <div class="input-group mb-2 justify-content-center">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        {{form.first_name}}
+                    </div>
+                    <div class="input-group mb-2 justify-content-center">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                        </div>
+                        {{form.email}}
+                    </div>
+                    <div class="input-group mb-2  justify-content-center">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        {{form.password1}}
+                    </div>
+                    <div class="input-group mb-2 justify-content-center">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        {{form.password2}}
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="ntn" value="Registrarse">
+                    </div>
+                    <div class="mt-4">
+                        {{form.errors}}
+                    </div>
+                </form>
+                <div class="d-flex text-light justify-content-center links">
+                    ¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="ml-2">Inicio sesión</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        //Query All input fields
+        var form_fields = document.getElementsByTagName('input')
+        form_fields[1].placeholder = 'Username..';
+        form_fields[2].placeholder = 'Nombre..';
+        form_fields[3].placeholder = 'Email..';
+        form_fields[4].placeholder = 'Enter password...';
+        form_fields[5].placeholder = 'Re-enter Password...';
+
+       
+    </script>
+    {% endblock %}

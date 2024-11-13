@@ -1,0 +1,58 @@
+.fondoredondo {
+    background: rgba(0,0,0,.25);
+ 
+}
+.tablafondo {
+    background: rgba(0,0,0,.25);
+}
+
+
+.formulario {
+    background: rgba(0,0,0,.5);
+    padding: 20px;
+    
+}
+.formulario2 {
+    background: rgba(0,0,0,.25);
+    padding: 10px;
+    
+}
+.formulario3 {
+    background: rgba(0,0,0,.25);
+    
+}
+.barra {
+    background: rgba(0,0,0,.5);
+}
+
+.img-container{
+    width :25%;
+    height: auto;
+    
+}
+
+.iconos_blancos {
+    color: white;
+}
+
+
+.centerbutton {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  th, 
+  td{
+    vertical-align: middle;
+  }
+
+  @media screen and (max-width: 450px) {
+    .img-container {
+        width :40%;
+        height: auto;
+    }
+      /* Acá pongo un . y la clase para futuros arreglos  */
+  }

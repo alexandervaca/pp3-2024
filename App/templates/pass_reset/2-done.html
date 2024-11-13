@@ -1,0 +1,21 @@
+{% extends "base_login.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/estilos.css.' %}">
+ {% endblock %}
+{% block titulo %} Done {% endblock %}
+{% block body %} 
+<div class="container">
+    <div class="row justify-content-center pt-5">
+        <div class="col-md-4 formulario">
+            <div class="input-group mb-2 justify-content-center ">
+                <div class="input-group-append justify-content-center ">
+                    <img src={% static 'imagenes/Logo-grey.png' %} class="img-fluid " alt="" srcset="" width=40%;
+                        height=auto></i>
+                </div>
+                <h4>Te hemos enviado un correo con un enlace para reestablecer tu contraseña</h4>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
