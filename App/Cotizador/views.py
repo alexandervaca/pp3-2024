@@ -176,8 +176,6 @@ def get_servicios_por_categoria(request):
 
     return JsonResponse({'servicios': []})
 
-
-
 def cotizar(request):
     context ={}
     print("cotizar")

@@ -169,10 +169,21 @@
 			}
 		}
 
-		// Acción al hacer clic en "Quiero que me contacten"
-		document.getElementById('finalContact').addEventListener('click', function() {
-			if (confirm('¿Estás seguro que deseas ser contactado por por las marcas seleccionadas?')) {
-				window.location.href = '../fin'; // Redirige a la página final
+		// Acción al hacer clic en el botón final
+		document.getElementById('finalContact').addEventListener('click', function () {
+			const contactButton = document.getElementById('finalContact');
+			// Confirmar la selección del usuario
+			if (confirm('Confirme su elección o presione CANCELAR para regresar al menú')) {
+				if (contactButton.textContent === 'No Quiero que me contacten') {
+					// Si el texto es "No Quiero que me contacten", redirige al inicio
+					window.location.href = 'http://localhost:8000/inicio/';
+				} else {
+					// Si el texto es "Quiero que me contacten", redirige a la página final
+					window.location.href = '../fin';
+				}
+			} else {
+				// Si elige "Cancelar", lo lleva al inicio de la cotización
+				window.location.href = '../cotizacion';
 			}
 		});
 		

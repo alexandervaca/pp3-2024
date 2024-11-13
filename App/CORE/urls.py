@@ -6,7 +6,7 @@ Examples:
 Function views
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
+Class-baseviewsd views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
@@ -27,7 +27,7 @@ urlpatterns = [
     path('', include('Cotizador.urls')),
     path('', include('Login.urls')),
     path('', include('Proveedores.urls')),
-    path('contact/', contact_view, name='contact'),
+    path('contact/', contact_view, name='contact'),    
 ]
 
 

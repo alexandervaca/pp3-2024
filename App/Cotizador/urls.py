@@ -1,11 +1,10 @@
 from django.urls import path
-from . import views
+from . import views # Importa el módulo de vistas
 from django.contrib.auth import views as auth_views
 from .views import CotizacionWizard
 from .views import get_servicios_por_categoria
 from django.conf import settings
 from django.conf.urls.static import static
-
 
 urlpatterns = [
     path('inicio/', views.inicio, name='inicio' ),
