@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="cotizacion-container">
-    <h1 class="final-title">{{cliente.nombre}}, encontramos {{ total_por_proveedor|length }} proveedores para tu solicitud:</h1>
+    <h1 class="final-title">{{cliente.first_name}}, encontramos {{ total_por_proveedor|length }} proveedores para tu solicitud:</h1>
     <p class="proveedores-text">Descubre estos precios competitivos y servicios personalizados para el monitoreo y gestión de flotas. Selecciona el servicio que mejor se ajuste a tu necesidad y envíales el aviso de contacto para que te ayuden a optimizar tu negocio.</p>
 
     {% for total in total_por_proveedor %}

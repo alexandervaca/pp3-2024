@@ -11,24 +11,26 @@ from formtools.wizard.views import SessionWizardView
 from .models import *
 from .utils import *
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import (
     GeolocalizarForm,
     QueRastrearForm,
     CuantosForm,
     ServicioInteresForm,
     SoftwareForm,
-    DatosContactoForm
 )
 
-class CotizacionWizard(SessionWizardView):
+class CotizacionWizard(LoginRequiredMixin, SessionWizardView):
+    login_url = 'login'  # URL a la que redirige si no está autenticado
+    redirect_field_name = 'redirect_to'  # Campo de redirección para después de iniciar sesión
     template_name = "cotizar.html"
     form_list = [
         GeolocalizarForm,
         QueRastrearForm,
         CuantosForm,
         ServicioInteresForm,
-        SoftwareForm,
-        DatosContactoForm
+        SoftwareForm
     ]
 
     def get_form_kwargs(self, step=None):
@@ -104,8 +106,9 @@ class CotizacionWizard(SessionWizardView):
 
         #Creacion/obtencion del cliente
         datos_contacto_data = self.get_cleaned_data_for_step('5')  # Paso 6: DatosContactoForm
+        
         # Llamar a la funcion que crea o actualiza el cliente
-        cliente = obtener_o_crear_cliente(datos_contacto_data)
+        cliente = self.request.user
 
         #Obtencion de datos necesarios para la cotizacion
         vehiculo_data         = self.get_cleaned_data_for_step('1')
@@ -124,16 +127,6 @@ class CotizacionWizard(SessionWizardView):
         software_ids = software_data.get('software')
         software = Servicio.objects.filter(id__in=software_ids)
 
-
-        print(f"Cantidad: {cantidad}")
-        print(f"Vehículo: {vehiculo}")
-        print(f"Categoría: {categoria}")
-        print(f"Servicios: {servicios}")
-        print(f"Software: {software}")
-        print (f"Paso 3: {servicio_interes_data}")
-
-
-
         #Clase Cotizacion - crea instancia
         cotizacion = Cotizacion(cantidad, vehiculo, categoria, servicios, software, cliente)
         # Calcular total por proveedor
@@ -141,12 +134,13 @@ class CotizacionWizard(SessionWizardView):
         #print("Total por proveedor:", total_por_proveedor)  # Para verificar en la consola
         # Guardar la cotizacion
         cotizacion_cabecera = cotizacion.guardar_cotizacion()        
+        categoriabd = Categoria.objects.get(id=categoria)
 
         contexto = {
             'cliente': cliente,
             'vehiculo': vehiculo,
             'cantidad': cantidad,
-            'categoria':categoria,
+            'categoria':categoriabd,
             'servicios':servicios,
             'software':software,
             'total_por_proveedor':total_por_proveedor,
@@ -176,19 +170,25 @@ def get_servicios_por_categoria(request):
 
     return JsonResponse({'servicios': []})
 
-def cotizar(request):
-    context ={}
-    print("cotizar")
-    return render(request, 'cotizador.html', context)  
+
 
 def inicio(request):
     context ={}
     return render(request, '0-inicio.html', context)  
 
+@login_required(login_url='login')
+def cotizar(request):
+    context ={}
+    print("cotizar")
+    return render(request, 'cotizador.html', context)  
+
+
+@login_required(login_url='login')
 def cotizacion(request):
     context = {}
     return render(request, 'cotizacion.html', context)
 
+@login_required(login_url='login')
 def fin(request):
     context = {}
     return render(request, 'fin.html', context)

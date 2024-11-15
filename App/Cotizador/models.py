@@ -1,6 +1,7 @@
 from django.db import models
 from Proveedores.models import Proveedor
 import datetime
+from django.conf import settings
 
 # Create your models here.
 class Categoria(models.Model):
@@ -47,7 +48,7 @@ class VehiculoServicio(models.Model):
         verbose_name = 'Vehículo Y Servicio'
         verbose_name_plural = 'Vehículos y Servicios'
         ordering = ['id']
-
+'''
 class Cliente(models.Model):
     tipo_choices = [
         ('P', 'Particular'),
@@ -64,11 +65,13 @@ class Cliente(models.Model):
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
         ordering = ['id']
-
+'''
 
 class Cotizacion_cabecera(models.Model):
-    idCliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, )
-    fecha     = models.DateField( auto_now_add=True, null= True, verbose_name='Fecha',)
+    idCliente  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Cliente')
+    fecha      = models.DateField( auto_now_add=True, null= True, verbose_name='Fecha',)
+    idVehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Vehículo')
+    cantidad   = models.IntegerField(verbose_name='Cantidad',)
     def __str__(self):
         return str(self.id)
     class Meta:
@@ -79,10 +82,10 @@ class Cotizacion_cabecera(models.Model):
 
 
 class Cotizacion_linea(models.Model):
-    idCoticazion_cab    = models.ForeignKey(Cotizacion_cabecera, on_delete=models.CASCADE, verbose_name='Cotización cabecera' )
+    idCotizazion_cab    = models.ForeignKey(Cotizacion_cabecera, on_delete=models.CASCADE, verbose_name='Cotización cabecera' )
     idProveedor         = models.ForeignKey(Proveedor, on_delete=models.CASCADE,verbose_name='Proveedor', )
-    idVechiculoServicio = models.ForeignKey(VehiculoServicio, on_delete=models.CASCADE, verbose_name='Vehículo-Servicio',)
-    cantidad            = models.IntegerField(verbose_name='Cantidad',)
+    idCategoria         = models.ForeignKey(Categoria, on_delete=models.CASCADE,verbose_name='Categoría' )
+    idServicio          = models.ForeignKey(Servicio, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Servicio')
     precio_unitario     = models.DecimalField( decimal_places=2, max_digits=10, verbose_name='Precio x Unidad',)
     contacto            = models.BooleanField(default= False,verbose_name='Contacto' )
     def __str__(self):

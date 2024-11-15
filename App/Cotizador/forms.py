@@ -159,6 +159,7 @@ class SoftwareForm(forms.Form):
     )
 
 # 6. Formulario para los datos de contacto
+'''
 class DatosContactoForm(forms.ModelForm):
     class Meta:
         model = Cliente
@@ -198,6 +199,6 @@ class DatosContactoForm(forms.ModelForm):
                 }
             except Cliente.DoesNotExist:
                 pass  # Si el cliente no existe, no inicializa nada.   
-    
+'''    
     
     

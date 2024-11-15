@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import  Categoria, Vehiculo, Servicio, VehiculoServicio, Cliente, Cotizacion_cabecera, Cotizacion_linea, Tarifa
+from .models import  Categoria, Vehiculo, Servicio, VehiculoServicio, Cotizacion_cabecera, Cotizacion_linea, Tarifa
 #,Cliente, Cotizacion_cabecera, Cotizacion_linea
 
 
@@ -51,23 +51,25 @@ class ServicioAdmin(admin.ModelAdmin):
     list_display_links=('descripcion',)
     list_filter=('idCategoria',)
 
+'''
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
     list_display=('id','nombre','email','telefono',)
     search_fields=('nombre','email',)
     list_display_links=('nombre',)
+'''
 
 @admin.register(Cotizacion_cabecera)
 class Cotizaciones_CabeceraAdmin(admin.ModelAdmin):
-    list_display=('id','idCliente','fecha',)
-    search_fields=('idCliente',)
+    list_display=('id','idCliente','fecha', 'idVehiculo', 'cantidad')
+    search_fields=('idCliente__nombre',)
     list_display_links=('id',)    
-    list_filter=('fecha',)
+    list_filter=('fecha','idVehiculo',)
 
 @admin.register(Cotizacion_linea)
 class Cotizaciones_LineaAdmin(admin.ModelAdmin):
-    list_display=('id', 'idCoticazion_cab', 'idProveedor', 'idVechiculoServicio', 'cantidad', 'precio_unitario', 'contacto')
-    search_fields=('idVechiculoServicio', 'idProveedor',)
+    list_display=('id', 'idCotizazion_cab', 'idProveedor', 'idCategoria', 'idServicio', 'precio_unitario', 'contacto')
+    search_fields=('idCategoria', 'idServicio', 'idProveedor',)
     list_display_links=('id',)    
     list_filter=('contacto', 'idProveedor',)
 

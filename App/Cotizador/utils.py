@@ -1,4 +1,3 @@
-from .models import Cliente
 from .models import *
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -10,6 +9,7 @@ import copy
 from django.conf import settings
 from pathlib import Path
 
+'''
 def obtener_o_crear_cliente(datos_contacto_data):
     """
     Extrae los datos del contacto, intenta obtener un cliente por email. Si no existe, lo crea. 
@@ -44,7 +44,7 @@ def obtener_o_crear_cliente(datos_contacto_data):
         cliente.save()
 
     return cliente
-
+'''
 class Cotizacion:
     def __init__(self, cantidad, vehiculo, categoria, servicios, software, cliente):
         self.cantidad = cantidad
@@ -83,7 +83,10 @@ class Cotizacion:
         # Obtener tarifas para cada software seleccionado
         if self.software:
             for soft in self.software:
-                tarifas_software = Tarifa.objects.filter(idVechiculoServicio__Servicio__id=soft.id)
+                tarifas_software = Tarifa.objects.filter(
+                    idVechiculoServicio__Vehiculo=self.vehiculo,
+                    idVechiculoServicio__Servicio__id=soft.id
+                    )
                 tarifas.extend(tarifas_software) 
 
         return tarifas
@@ -126,17 +129,19 @@ class Cotizacion:
     def guardar_cotizacion(self):
     # Crear la cabecera de la cotización
         cotizacion_cabecera = Cotizacion_cabecera.objects.create(
-            idCliente=self.cliente
+            idCliente=self.cliente,
+            idVehiculo=self.vehiculo,
+            cantidad=self.cantidad
         )
         
         # Guarda líneas de cotización
         #Se recorren las tarifas obtenidas en base a la selección que hizo el cliente en el Wizard
         for tarifa in self.tarifas:
             Cotizacion_linea.objects.create(
-                idCoticazion_cab=cotizacion_cabecera,
+                idCotizazion_cab=cotizacion_cabecera,
                 idProveedor=tarifa.idProveedor ,  
-                idVechiculoServicio=tarifa.idVechiculoServicio,
-                cantidad=self.cantidad,
+                idCategoria=tarifa.idVechiculoServicio.Servicio.idCategoria,
+                idServicio=tarifa.idVechiculoServicio.Servicio,
                 precio_unitario=tarifa.precio_unitario,
                 contacto=False  # Dejar contacto vacío
             )
