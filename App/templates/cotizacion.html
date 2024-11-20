@@ -5,20 +5,66 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    .btn-contacto {
+        background-color: #fa560a;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-contacto.selected {
+        background-color: #7f4399;
+    }
+
+    .contactar-boton {
+        display: block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        margin: 20px auto 0;
+        cursor: pointer;
+        font-size: 16px;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease;
+    }
+
+    .contactar-boton.no-contact {
+        background-color: #fa560a;
+        color: white;
+    }
+
+    .contactar-boton.contact {
+        background-color: #2ecc71;
+        color: white;
+    }
+
+    .contactar-boton:hover {
+        opacity: 0.9;
+    }
+</style>
 
 <div class="cotizacion-container">
-    <h1 class="final-title">{{cliente.first_name}}, encontramos {{ total_por_proveedor|length }} proveedores para tu solicitud:</h1>
+    <h1 class="final-title">{{ cliente.first_name }}, encontramos {{ total_por_proveedor|length }} proveedores para tu solicitud:</h1>
     <p class="proveedores-text">Descubre estos precios competitivos y servicios personalizados para el monitoreo y gestión de flotas. Selecciona el servicio que mejor se ajuste a tu necesidad y envíales el aviso de contacto para que te ayuden a optimizar tu negocio.</p>
 
-    {% for total in total_por_proveedor %}
-    <div class="proveedor-box">
-        <img src="{{total.logo}}" alt="{{total.empresa }}" class="proveedor-logo">
-        <p class="proveedor-price">${{total.total}}</p>
-        <button class="btn-contacto" data-id="1">Me interesa</button>
+    <!-- Lista de Proveedores -->
+    <div>
+        {% for total in total_por_proveedor %}
+        <div class="proveedor-box">
+            <img src="{{ total.logo }}" alt="{{ total.empresa }}" class="proveedor-logo">
+            <p class="proveedor-price">${{ total.total }}</p>
+            <button class="btn-contacto" data-id="{{ total.id }}">Me interesa</button>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    
-    <!-- Boton Quiero que me contacten -->
+
+    <!-- Botón Final -->
     <button class="contactar-boton no-contact" id="finalContact">No Quiero que me contacten</button>
 
     <!-- Notas de Pie -->
@@ -27,4 +73,58 @@
         <span>**Válido por 5 días a partir de su emisión.</span>
     </div>
 </div>
+
+<script>
+    // Array para almacenar los proveedores seleccionados
+    let selectedProviders = [];
+
+    // Seleccionar proveedores al hacer clic en los botones
+    document.querySelectorAll('.btn-contacto').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const providerId = this.getAttribute('data-id');
+
+            // Alternar selección
+            if (!selectedProviders.includes(providerId)) {
+                selectedProviders.push(providerId);
+                this.classList.add('selected');
+            } else {
+                selectedProviders = selectedProviders.filter(id => id !== providerId);
+                this.classList.remove('selected');
+            }
+
+            updateContactButton(); // Actualizar el botón final
+        });
+    });
+
+    // Actualizar el botón final dinámicamente
+    function updateContactButton() {
+        const contactButton = document.getElementById('finalContact');
+
+        if (selectedProviders.length > 0) {
+            contactButton.textContent = 'Quiero que me contacten';
+            contactButton.classList.remove('no-contact');
+            contactButton.classList.add('contact');
+        } else {
+            contactButton.textContent = 'No Quiero que me contacten';
+            contactButton.classList.remove('contact');
+            contactButton.classList.add('no-contact');
+        }
+    }
+
+    // Acción al hacer clic en el botón final
+    document.getElementById('finalContact').addEventListener('click', function () {
+        if (selectedProviders.length > 0) {
+            // Redirigir a fin.html si selecciona "Quiero que me contacten"
+            if (confirm('Confirme su elección o presione CANCELAR para regresar al menú')) {
+                window.location.href = 'fin.html';
+            }
+        } else {
+            // Redirigir a 0-inicio.html si selecciona "No Quiero que me contacten"
+            if (confirm('Confirme su elección o presione CANCELAR para regresar al menú')) {
+                window.location.href = '0-inicio.html';
+            }
+        }
+    });
+</script>
+
 {% endblock %}

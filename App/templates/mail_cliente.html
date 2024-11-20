@@ -1,58 +1,136 @@
 {% extends "base_cotizacion.html" %}
 {% load static %}
-{% load humanize %}
-{% load static %}
-
-{% block head %}
-{% endblock %}
+{% block head %}{% endblock %}
 
 {% block content %}
-    <div class="cotizacion-container">
-        <h1 class="final-title">Estimad@ {{ cliente.first_name }}</h1>
+<style>
+    body {
+        background-color: #f7f7f7;
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+    .cotizacion-container {
+        max-width: 90%;
+        margin: 20px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+    .final-title {
+        font-size: 24px;
+        color: #7f4399;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .section-title-heading {
+        color: #fa560a;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 20px 0 10px;
+        text-align: left;
+    }
+    .proveedores-text {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+    .section-title {
+        list-style-type: none;
+        padding: 0;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .section-title li {
+        margin-bottom: 8px;
+        background-color: #f0f0f5;
+        padding: 8px;
+        border-radius: 5px;
+    }
+    .proveedor-box {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        display: inline-block;
+        width: 100%;
+        max-width: 48%;
+        text-align: left;
+        box-sizing: border-box;
+    }
+    .provider-price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #fa560a;
+    }
+    .footer-notes {
+        font-size: 16px;
+        color: #8B0000;
+        margin-top: 20px;
+        text-align: left;
+    }
+    .footer-notes span {
+        display: block;
+        margin-top: 5px;
+    }
+    @media (max-width: 768px) {
+        .proveedor-box {
+            max-width: 100%;
+        }
+        .final-title {
+            font-size: 20px;
+        }
+        .section-title-heading, .proveedores-text {
+            font-size: 14px;
+        }
+    }
+</style>
 
-        <p class="proveedores-text">Tu selección para cotizar ha sido:</p>
-        <ul class="section-title">
-            <li><strong>Vehículo:</strong> {{ vehiculo.descripcion }} </li>
-            <li><strong>Cantidad:</strong> {{ cantidad }}</li>
-        </ul>
+<div class="cotizacion-container">
+    <h1 class="final-title">Estimad@ {{ cliente.first_name }}</h1>
+    <p class="section-title-heading">Tu selección para cotizar ha sido:</p>
+    <ul class="section-title">
+        <li><strong>Vehículo:</strong> {{ vehiculo.descripcion }}</li>
+        <li><strong>Cantidad:</strong> {{ cantidad }}</li>
+    </ul>
 
-        <div class="proveedores-text">Dentro de la categoría <strong>{{ categoria.descripcion }}</strong>, elegiste los siguientes servicios:</div>
-        <ul class="section-title">
-            {% for servicio in servicios %}
-            <li>{{ servicio.descripcion }}</li>
-            {% endfor %}
-        </ul>
+    <div class="section-title-heading">Dentro de la categoría <strong>{{ categoria.descripcion }}</strong>, elegiste los siguientes servicios:</div>
+    <ul class="section-title">
+        {% for servicio in servicios %}
+        <li><strong>{{ servicio.descripcion }}</strong></li>
+        {% endfor %}
+    </ul>
 
-        {% if software %}
-        <div class="proveedores-text">En software seleccionaste lo siguiente:</div>
-        <ul  class="section-title">
-            {% for sw in software %}
-            <li><strong>{{ sw.descripcion }}</strong></li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+    {% if software %}
+    <div class="section-title-heading">En software seleccionaste lo siguiente:</div>
+    <ul class="section-title">
+        {% for sw in software %}
+        <li><strong>{{ sw.descripcion }}</strong></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-        <div class="proveedores-text">Tu cotización es la siguiente:</div>
-        
-        <div>
-            {% for total in total_por_proveedor %}
-            <div class="proveedor-box">
-                <p><strong>{{ total.empresa }}</strong></p>
-                <p class="provider-price">${{ total.total }}</p>
-                <a href="{{ total.web }}" target="_blank">web</a>
-            </div>
-            {% endfor %}
+    <div class="section-title-heading">Tu cotización es la siguiente:</div>
+    <div>
+        {% for total in total_por_proveedor %}
+        <div class="proveedor-box">
+            <p><strong>{{ total.empresa }}</strong></p>
+            <p class="provider-price">${{ total.total }}</p>
+            <a href="{{ total.web }}" target="_blank">Visitar web</a>
         </div>
-
-        <div class="footer-notes">
-            <span>*Los precios incluyen impuestos.</span>
-            <span>**La cotización es válida por 5 días a partir de su emisión.</span>
-        </div>
+        {% endfor %}
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-</body>
+    <div class="footer-notes">
+        <br> <span>*Los precios incluyen impuestos.</span>
+        <span>*La cotización es válida por 5 días a partir de su emisión.</span>
+    </div>
+</div>
 
-</html>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 {% endblock %}
+ 
