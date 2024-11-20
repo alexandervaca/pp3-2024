@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Mis Cotizaciones</h2>
+    {% if cotizaciones %}
+        {% for item in cotizaciones %}
+            <div class="cotizacion">
+                <h3>Cotización ID: {{ item.cotizacion.id }}</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Vehículo</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ item.cotizacion.fecha }}</td>
+                            <td>{{ item.cotizacion.idVehiculo.descripcion }}</td>
+                            <td>{{ item.cotizacion.cantidad }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Información agrupada por proveedor -->
+                {% for proveedor in item.proveedores %}
+                    <h4>Proveedor: {{ proveedor.empresa }}</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Servicio</th>
+                                <th>Precio por Unidad</th>
+                                <th>Contacto Solicitado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for linea in proveedor.lineas %}
+                                <tr>
+                                    <td>{{ linea.categoria }}</td>
+                                    <td>{{ linea.servicio }}</td>
+                                    <td>${{ linea.precio_unitario }}</td>
+                                    <td>
+                                        {% if linea.contacto %}
+                                            Sí
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <!-- Total del proveedor -->
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Total Proveedor:</strong></td>
+                                <td><strong>${{ proveedor.total }}</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                {% endfor %}
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No tienes cotizaciones.</p>
+    {% endif %}
+</div>
+{% endblock %}

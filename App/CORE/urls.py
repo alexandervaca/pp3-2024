@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('Cotizador.urls')),
     path('', include('Login.urls')),
     path('', include('Proveedores.urls')),
+    path('', include('Cliente.urls')),
     path('contact/', contact_view, name='contact'),    
 ]
 
