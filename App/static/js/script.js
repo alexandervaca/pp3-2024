@@ -20,9 +20,9 @@ $(".next").click(function(){
 			left = (now * 50)+"%"; 
 			opacity = 1 - now;
 			current_fs.css({
-        'transform': 'scale('+scale+')',
-        'position': 'absolute'
-      });
+				'transform': 'scale('+scale+')',
+				'position': 'absolute'
+			});
 			next_fs.css({'left': left, 'opacity': opacity});
 		}, 
 		duration: 800, 
@@ -56,7 +56,7 @@ $(".previous").click(function(){
 		complete: function(){
 			current_fs.hide();
 			animating = false;
-		},  
+		},
 		easing: 'easeInOutBack'
 	});
 });
@@ -66,43 +66,38 @@ $(".submit").click(function(){
 })
 
 
-$(function() {                     
-  
-	$(".btn-log").click(function() {  
-    $(".caracteristicas").removeClass("active");
-    $("#logistico").toggleClass("active");  
-  });
+$(function() {
+	$(".btn-log").click(function() {
+		$(".caracteristicas").removeClass("active");
+		$("#logistico").toggleClass("active");
+	});
   
 	$(".btn-seg").click(function() {  
-    $(".caracteristicas").removeClass("active");
-    $("#seguridad").toggleClass("active");  
-  });
+		$(".caracteristicas").removeClass("active");
+		$("#seguridad").toggleClass("active");  
+	});
 
 	$(".btn-con").click(function() {  
-    $(".caracteristicas").removeClass("active"); 
-    $("#control").toggleClass("active"); 
-  });
+		$(".caracteristicas").removeClass("active"); 
+		$("#control").toggleClass("active"); 
+	});
 
 	$(".btn-vid").click(function() {  
-    $(".caracteristicas").removeClass("active"); 
-    $("#video").toggleClass("active"); 
-  });
+		$(".caracteristicas").removeClass("active"); 
+		$("#video").toggleClass("active"); 
+	});
 	
 	$(".btn-segui").click(function() {  
-    $(".caracteristicas").removeClass("active"); 
-    $("#seguimiento").toggleClass("active"); 
-  });
-
+		$(".caracteristicas").removeClass("active"); 
+		$("#seguimiento").toggleClass("active"); 
+	});
 });
 
-$(function() { 
-                    
-if ($('.last-step').visible(true)) {
-    
+// no se estaria usando
+/*$(function() {             
+	if ($('.last-step').visible(true)) {
 		$(this).addClass('prub')
-		
-} else {
-    // The element is NOT visible, do something else
-}
-
-});
+	} else {
+		// The element is NOT visible, do something else
+	}
+});*/

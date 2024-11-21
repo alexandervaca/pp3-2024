@@ -2,7 +2,7 @@ from django.urls import path
 from . import views # Importa el módulo de vistas
 from django.contrib.auth import views as auth_views
 from .views import CotizacionWizard
-from .views import get_servicios_por_categoria
+from .views import enviar_mail_proveedores, get_servicios_por_categoria
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -13,6 +13,7 @@ urlpatterns = [
     #path('cotizar/', CotizacionWizard.as_view(), name='cotizacion_wizard'),
     path('cotizar/', CotizacionWizard.as_view(), name='cotizar' ),
     path('cotizar/get-servicios/', get_servicios_por_categoria, name='get_servicios_por_categoria'),
+    path('cotizar/proveedores/enviar-mail', enviar_mail_proveedores, name='enviar_mail_proveedores'),
     path('fin/', views.fin, name='fin' )
 ]
 

@@ -1,12 +1,9 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages 
 from django.contrib.auth import  authenticate, login, logout
-from django.http import HttpResponse
 from formtools.wizard.views import SessionWizardView
 from .models import *
 from .utils import *
@@ -170,11 +167,16 @@ def get_servicios_por_categoria(request):
 
     return JsonResponse({'servicios': []})
 
+def enviar_mail_proveedores(request):
+    proveedores = request.GET.get('proveedores', None)
+    print(f'enviar_mail_proveedores: {proveedores}')
+
+    return JsonResponse({'status': 'ok'})
 
 
 def inicio(request):
-    context ={}
-    return render(request, '0-inicio.html', context)  
+    # context ={}
+    return render(request, '0-inicio.html')  
 
 @login_required(login_url='login')
 def cotizar(request):
