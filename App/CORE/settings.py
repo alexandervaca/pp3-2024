@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'Login',
     'Proveedores',
     'formtools',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'Cliente',
 ]
 
 MIDDLEWARE = [

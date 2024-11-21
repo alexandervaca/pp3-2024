@@ -171,6 +171,20 @@ def enviar_mail_proveedores(request):
     proveedores = request.GET.get('proveedores', None)
     print(f'enviar_mail_proveedores: {proveedores}')
 
+    """ contexto = {
+        'proveedor': proveedor,
+        'vehiculo': vehiculo,
+        'cantidad': cantidad,
+        'categoria':categoriabd,
+        'servicios':servicios,
+        'software':software,
+        'total_por_proveedor':total_por_proveedor,
+        'cotizacion_cabecera':cotizacion_cabecera,
+    } """
+
+    # enviar_cotizacion_proveedor
+
+
     return JsonResponse({'status': 'ok'})
 
 

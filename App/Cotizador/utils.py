@@ -170,5 +170,25 @@ def enviar_cotizacion_cliente(contexto):
         html_message=mensaje_html  # Contenido en HTML
     )
 
+def enviar_cotizacion_proveedor(contexto):
+    # Hace una copia profunda del contexto para no modificar el original
+    contexto2 = copy.deepcopy(contexto)
+   
+    # Configura los parámetros del correo
+    asunto = "La cotización del GURU"
+    destinatario = contexto['proveedor'].email  # Dirección de correo del cliente
+    remitente = settings.DEFAULT_FROM_EMAIL
 
+     # Renderiza el cuerpo del correo con la plantilla
+    mensaje_html = render_to_string('mail_proveedor.html', contexto2)
+    mensaje_texto = strip_tags(mensaje_html)  # Alternativa en texto plano
+
+    # Envía el correo
+    send_mail(
+        asunto,
+        mensaje_texto,  # Contenido en texto plano
+        remitente,
+        [destinatario],
+        html_message=mensaje_html  # Contenido en HTML
+    )
     
