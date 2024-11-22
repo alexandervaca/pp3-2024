@@ -1,0 +1,85 @@
+/* Contenedor general */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos de cotización */
+.cotizacion-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #0a9bdf;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Icono de desplegar/contraer */
+.toggle-icon {
+    font-size: 20px;
+    color: #692a7c;
+    transition: transform 0.3s ease;
+}
+
+/* Detalles de la cotización */
+.cotizacion-details {
+    padding: 10px 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Tablas */
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #f0f0f5; /* Gris claro */
+    color: #692a7c; /* Violeta */
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+}
+
+.table tbody td, .table tfoot td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+/* Totales resaltados */
+.table tfoot td {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+/* Subtítulos de proveedor */
+h4 {
+    color: #7f4399;
+    margin-top: 15px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .cotizacion-title {
+        font-size: 18px;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+
+    .toggle-icon {
+        font-size: 18px;
+    }
+}
+ 
