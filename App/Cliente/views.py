@@ -27,7 +27,8 @@ def mis_cotizaciones(request):
                 total_por_proveedor[proveedor] = {
                     "empresa": proveedor.empresa,
                     "lineas": [],
-                    "total": 0
+                    "total": 0, 
+                    "contacto": linea.contacto
                 }
             if linea.idCategoria.descripcion == "Software":
                 subtotal = linea.precio_unitario  # Multiplica por 1 si es Software

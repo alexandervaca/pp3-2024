@@ -26,14 +26,19 @@
 
                 <!-- Información agrupada por proveedor -->
                 {% for proveedor in item.proveedores %}
-                    <h4>Proveedor: {{ proveedor.empresa }}</h4>
+                    <h4>Proveedor: {{ proveedor.empresa }}</h4> <h5>Contacto Solicitado: 
+                        {% if item.cotizacion.contacto %}
+                            Sí
+                        {% else %}
+                            No
+                        {% endif %}
+                    </h5>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Categoría</th>
                                 <th>Servicio</th>
                                 <th>Precio por Unidad</th>
-                                <th>Contacto Solicitado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,13 +47,6 @@
                                     <td>{{ linea.categoria }}</td>
                                     <td>{{ linea.servicio }}</td>
                                     <td>${{ linea.precio_unitario }}</td>
-                                    <td>
-                                        {% if linea.contacto %}
-                                            Sí
-                                        {% else %}
-                                            No
-                                        {% endif %}
-                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

@@ -96,18 +96,16 @@ class Cotizacion:
 
         # Diccionario temporal para acumular los totales por proveedor
         totales = {}
-
         #Se recorren las tarifas obtenidas en base a la selección que hizo el cliente en el Wizard
         for tarifa in self.tarifas:
             proveedor = tarifa.idProveedor  #Guardamos el proveedor
             monto = tarifa.precio_unitario  #Almacenamos el precio unitario
 
             # Si la tarifa pertenece a software, no se multiplica por cantidad de vehículos
-            if tarifa.idVechiculoServicio.Servicio.idCategoria == self.software:
+            if tarifa.idVechiculoServicio.Servicio.idCategoria.descripcion == 'Software':
                 cantidad_a_sumar = 1  # No multiplicar
             else:
                 cantidad_a_sumar = self.cantidad  # Multiplicar por la cantidad
-
            # Acumular el total por proveedor
             if proveedor.id in totales: #Si ya se almacenó el proveedor suma
                 totales[proveedor.id]['total'] += monto * cantidad_a_sumar
