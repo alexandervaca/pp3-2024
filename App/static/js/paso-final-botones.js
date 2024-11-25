@@ -52,7 +52,9 @@ document.getElementById('finalContact').addEventListener('click', function () {
 });
 
 function enviarMailAProveedores() {
-    fetch('proveedores/enviar-mail?proveedores='+selectedProviders)
+    const cotizacion_cabecera_id = document.getElementById('cotizacion_cabecera_id').value;
+
+    fetch('proveedores/enviar-mail?cotizacion_cabecera_id='+cotizacion_cabecera_id+'&proveedores='+selectedProviders)
     .then(response => response.json())
     .then(data => {
         console.log('data: '+data);
