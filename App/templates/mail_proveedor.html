@@ -91,12 +91,11 @@
 </head>
 <body>
 <div class="cotizacion-container">
-    <h2 class="final-title">Estimad@ {{ proveedor.nombre }}</h2><br>
-    <p>Has sido seleccionad@ por el cliente:</p> <br>
-    <p><strong>{{ cliente.first_name }} {{ cliente.last_name }}</strong></p>
+    <h2 class="final-title">Estimado proveedor {{ proveedor.nombre }}</h2><br>
+    <p>Has sido seleccionad@ por el cliente: <br><strong>{{ cliente.first_name }} {{ cliente.last_name }}</strong></p>
 
     <div class="contact-info">
-        <div><strong>Email: cliente@gmail.com</strong> {{ cliente.email }}</div>
+        <div><strong>Email: {{ cliente.email }}</strong></div>
         <div><strong>Celular:11 5467-8899</strong> cliente.celular</div>
     </div>
 

@@ -172,15 +172,9 @@ def enviar_mail_proveedores(request):
     print(f'enviar_mail_proveedores: {proveedoresReq}')
     
     proveedoresReq = proveedoresReq.split(',')
-
     proveedores = list(map(int, proveedoresReq))
-    #proveedores = list()
-    #for i in range(len(proveedoresReq)):
-    #    proveedores[i] = int(proveedoresReq[i])
-
 
     cotizacion_cabecera_id = request.GET.get('cotizacion_cabecera_id')
-    print(f'cotizacion_cabecera_id: {cotizacion_cabecera_id}')
 
     cotizacionCabList = Cotizacion_cabecera.objects.filter(id=cotizacion_cabecera_id)
 
@@ -188,9 +182,8 @@ def enviar_mail_proveedores(request):
         cotizacionCab = cotizacionCabList.__getitem__(0)
         print(f'cotizacionCab: {cotizacionCab}')
 
-        clienteId = cotizacionCab.idCliente
-        print(f'clienteId: {clienteId}')
-        cliente = User.objects.filter(username=clienteId)
+        cliente = cotizacionCab.idCliente
+        print(f'cliente: {cliente}')
 
         vehiculo = cotizacionCab.idVehiculo
         print(f'vehiculo: {vehiculo}')
@@ -199,7 +192,7 @@ def enviar_mail_proveedores(request):
         print(f'cantidad: {cantidad}')
 
         for proveedorId in proveedores:
-            proveedor = Proveedor.objects.filter(id=proveedorId)
+            proveedorList = Proveedor.objects.filter(id=proveedorId)
 
             cotizacionLinList = Cotizacion_linea.objects.filter(idCotizazion_cab=cotizacionCab.id,idProveedor=proveedorId)
             if cotizacionLinList:
@@ -214,6 +207,9 @@ def enviar_mail_proveedores(request):
 
                 # si la categoria es 'Software', filtrar por este dato
                 software = any
+
+                proveedor = proveedorList[0]
+                print(f'proveedor: {proveedor}')
 
                 contexto = {
                     'cliente': cliente,

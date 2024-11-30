@@ -1,6 +1,5 @@
 from django.db import models
 from Proveedores.models import Proveedor
-import datetime
 from django.conf import settings
 
 # Create your models here.

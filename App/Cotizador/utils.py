@@ -178,13 +178,13 @@ def enviar_cotizacion_proveedor(contexto):
     asunto = 'La cotización del GURU'
     destinatario = 'alex_andy_25@yahoo.com.ar' #contexto['proveedor'].email  # Dirección de correo del cliente
     remitente = settings.DEFAULT_FROM_EMAIL
-
+    
      # Renderiza el cuerpo del correo con la plantilla
     mensaje_html = render_to_string('mail_proveedor.html', contexto2)
     mensaje_texto = strip_tags(mensaje_html)  # Alternativa en texto plano
     
     # Envía el correo
-    result = send_mail(
+    send_mail(
         asunto,
         mensaje_texto,  # Contenido en texto plano
         remitente,
