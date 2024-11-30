@@ -12852,7 +12852,7 @@ fieldset:disabled .btn {
 
 html {
   height: 100%;
-  scroll-padding-top: calc(4.5rem - 1px);
+  scroll-padding-top: 70px;
 }
 
 body {
@@ -12861,7 +12861,8 @@ body {
 }
 
 .page-section {
-  padding: 10rem 0;
+  padding: 70px;
+  margin-top: -70px;
 }
 
 .text-white-75 {
@@ -13115,3 +13116,4 @@ header.masthead .h1 {
 #portfolio .container-xxl .portfolio-box:hover .portfolio-box-caption {
   opacity: 1;
 }
+

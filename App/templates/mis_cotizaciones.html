@@ -2,68 +2,99 @@
 
 {% block content %}
 <div class="container">
-    <h2>Mis Cotizaciones</h2>
+    <h2 class="text-center">Mis Cotizaciones</h2>
     {% if cotizaciones %}
         {% for item in cotizaciones %}
-            <div class="cotizacion">
-                <h3>Cotización ID: {{ item.cotizacion.id }}</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Vehículo</th>
-                            <th>Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ item.cotizacion.fecha }}</td>
-                            <td>{{ item.cotizacion.idVehiculo.descripcion }}</td>
-                            <td>{{ item.cotizacion.cantidad }}</td>
-                        </tr>
-                    </tbody>
-                </table>
 
-                <!-- Información agrupada por proveedor -->
-                {% for proveedor in item.proveedores %}
-                    <h4>Proveedor: {{ proveedor.empresa }}</h4> <h5>Contacto Solicitado: 
-                        {% if item.cotizacion.contacto %}
-                            Sí
-                        {% else %}
-                            No
-                        {% endif %}
-                    </h5>
-                    <table class="table table-bordered">
+            <div class="cotizacion-group">
+                <!-- Título del grupo con botón desplegable -->
+                <h3 class="cotizacion-title" onclick="toggleCotizacion( {{ item.cotizacion.id }} )">
+                    Cotización ID: {{ item.cotizacion.id }} 
+                    <span id="icon-{{ item.cotizacion.id }}" class="toggle-icon">+</span>
+                </h3>
+                
+                <!-- Detalle de la cotización (oculto por defecto) -->
+                <div id="cotizacion-{{ item.cotizacion.id }}" class="cotizacion-details" style="display: none;">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th>Categoría</th>
-                                <th>Servicio</th>
-                                <th>Precio por Unidad</th>
+                                <th>Fecha</th>
+                                <th>Vehículo</th>
+                                <th>Cantidad</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for linea in proveedor.lineas %}
-                                <tr>
-                                    <td>{{ linea.categoria }}</td>
-                                    <td>{{ linea.servicio }}</td>
-                                    <td>${{ linea.precio_unitario }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                        <!-- Total del proveedor -->
-                        <tfoot>
                             <tr>
-                                <td colspan="3" class="text-end"><strong>Total Proveedor:</strong></td>
-                                <td><strong>${{ proveedor.total }}</strong></td>
+                                <td>{{ item.cotizacion.fecha }}</td>
+                                <td>{{ item.cotizacion.idVehiculo.descripcion }}</td>
+                                <td>{{ item.cotizacion.cantidad }}</td>
                             </tr>
-                        </tfoot>
+                        </tbody>
                     </table>
-                {% endfor %}
+
+                    <!-- Información agrupada por proveedor -->
+                    {% for proveedor in item.proveedores %}
+                        <h4>Proveedor: {{ proveedor.empresa }}</h4> <h5>Contacto Solicitado: 
+                            {% if item.cotizacion.contacto %}
+                            <span class="text-success">Sí</span>
+                            {% else %}
+                            <span class="text-danger">No</span>
+                            {% endif %}
+                        </h5>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <th>Servicio</th>
+                                    <th>Precio por Unidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for linea in proveedor.lineas %}
+                                    <tr>
+                                        <td>{{ linea.categoria }}</td>
+                                        <td>{{ linea.servicio }}</td>
+                                        <td>${{ linea.precio_unitario }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <!-- Total del proveedor -->
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-end"><strong>Total Proveedor:</strong></td>
+                                    <td><strong>${{ proveedor.total }}</strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    {% endfor %}
+                </div>
             </div>
             <hr>
         {% endfor %}
     {% else %}
-        <p>No tienes cotizaciones.</p>
+        <p class="text-center text-muted">No tienes cotizaciones.</p>
     {% endif %}
 </div>
+
+<!-- Botón para regresar al menú principal -->
+<div class="text-center mt-2">
+    <a href="{% url 'inicio' %}" class="btn btn-secondary">Regresar al Menú Principal</a>
+</div>
+
+<script>
+    // Función para mostrar/ocultar detalles de una cotización
+    function toggleCotizacion(cotizacionId) {
+        const details = document.getElementById(`cotizacion-${cotizacionId}`);
+        const icon = document.getElementById(`icon-${cotizacionId}`);
+        
+        if (details.style.display === "none") {
+            details.style.display = "block"; // Mostrar detalles
+            icon.textContent = "-"; // Cambiar icono
+        } else {
+            details.style.display = "none"; // Ocultar detalles
+            icon.textContent = "+"; // Cambiar icono
+        }
+    }
+</script>
 {% endblock %}
