@@ -8,7 +8,7 @@
 
             <div class="cotizacion-group">
                 <!-- Título del grupo con botón desplegable -->
-                <h3 class="cotizacion-title" onclick="toggleCotizacion( {{ item.cotizacion.id }} )">
+                <h3 class="cotizacion-title" onclick="toggleCotizacion({{ item.cotizacion.id }})">
                     Cotización ID: {{ item.cotizacion.id }} 
                     <span id="icon-{{ item.cotizacion.id }}" class="toggle-icon">+</span>
                 </h3>
@@ -62,7 +62,7 @@
                             <!-- Total del proveedor -->
                             <tfoot>
                                 <tr>
-                                    <td colspan="3" class="text-end"><strong>Total Proveedor:</strong></td>
+                                    <td colspan="2" class="text-end"><strong>Total Proveedor:</strong></td>
                                     <td><strong>${{ proveedor.total }}</strong></td>
                                 </tr>
                             </tfoot>
