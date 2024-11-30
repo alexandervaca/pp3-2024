@@ -62,14 +62,14 @@ class ClienteAdmin(admin.ModelAdmin):
 @admin.register(Cotizacion_cabecera)
 class Cotizaciones_CabeceraAdmin(admin.ModelAdmin):
     list_display=('id','idCliente','fecha', 'idVehiculo', 'cantidad')
-    search_fields=('idCliente__nombre',)
+    search_fields=('idCliente__username',)
     list_display_links=('id',)    
     list_filter=('fecha','idVehiculo',)
 
 @admin.register(Cotizacion_linea)
 class Cotizaciones_LineaAdmin(admin.ModelAdmin):
     list_display=('id', 'idCotizazion_cab', 'idProveedor', 'idCategoria', 'idServicio', 'precio_unitario', 'contacto')
-    search_fields=('idCategoria', 'idServicio', 'idProveedor',)
+    search_fields=('idCategoria__descripcion', 'idServicio__descripcion', 'idProveedor__empresa',)
     list_display_links=('id',)    
     list_filter=('contacto', 'idProveedor',)
 
