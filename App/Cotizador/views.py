@@ -168,21 +168,60 @@ def get_servicios_por_categoria(request):
     return JsonResponse({'servicios': []})
 
 def enviar_mail_proveedores(request):
-    proveedores = request.GET.get('proveedores', None)
-    print(f'enviar_mail_proveedores: {proveedores}')
+    proveedoresReq = request.GET.get('proveedores', None)
+    print(f'enviar_mail_proveedores: {proveedoresReq}')
+    
+    proveedoresReq = proveedoresReq.split(',')
+    proveedores = list(map(int, proveedoresReq))
 
-    """ contexto = {
-        'proveedor': proveedor,
-        'vehiculo': vehiculo,
-        'cantidad': cantidad,
-        'categoria':categoriabd,
-        'servicios':servicios,
-        'software':software,
-        'total_por_proveedor':total_por_proveedor,
-        'cotizacion_cabecera':cotizacion_cabecera,
-    } """
+    cotizacion_cabecera_id = request.GET.get('cotizacion_cabecera_id')
 
-    # enviar_cotizacion_proveedor
+    cotizacionCabList = Cotizacion_cabecera.objects.filter(id=cotizacion_cabecera_id)
+
+    if cotizacionCabList:
+        cotizacionCab = cotizacionCabList.__getitem__(0)
+        print(f'cotizacionCab: {cotizacionCab}')
+
+        cliente = cotizacionCab.idCliente
+        print(f'cliente: {cliente}')
+
+        vehiculo = cotizacionCab.idVehiculo
+        print(f'vehiculo: {vehiculo}')
+
+        cantidad = cotizacionCab.cantidad
+        print(f'cantidad: {cantidad}')
+
+        for proveedorId in proveedores:
+            proveedorList = Proveedor.objects.filter(id=proveedorId)
+
+            cotizacionLinList = Cotizacion_linea.objects.filter(idCotizazion_cab=cotizacionCab.id,idProveedor=proveedorId)
+            if cotizacionLinList:
+                cotizacionLin = cotizacionLinList.__getitem__(0)
+                
+                #categoria = Categoria.objects.filter(id=cotizacionLin.idCategoria)
+                categoria = cotizacionLin.idCategoria
+                print(f'categoria: {categoria}')
+
+                servicios = Servicio.objects.filter(id=cotizacionLin.idServicio.id)
+                print(f'servicios: {servicios}')
+
+                # si la categoria es 'Software', filtrar por este dato
+                software = any
+
+                proveedor = proveedorList[0]
+                print(f'proveedor: {proveedor}')
+
+                contexto = {
+                    'cliente': cliente,
+                    'proveedor': proveedor,
+                    'vehiculo': vehiculo,
+                    'cantidad': cantidad,
+                    'categoria':categoria,
+                    'servicios':servicios,
+                    'software':software
+                }
+
+                enviar_cotizacion_proveedor(contexto)
 
 
     return JsonResponse({'status': 'ok'})

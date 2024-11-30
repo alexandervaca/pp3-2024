@@ -1,0 +1,118 @@
+/* Fondo general con gradient */
+body {
+    background: linear-gradient(135deg, #fa560a, #692a7c);
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Título principal */
+  .container h2 {
+    color: #fa560a;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para los labels */
+  .form-group label {
+    display: block;
+    text-align: left;
+    color: #692a7c;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  
+  /* Estilo para los inputs */
+  .form-control {
+    width: 100%;
+    max-width: 400px; /* Limitar el tamaño de los inputs */
+    margin: 0 auto;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #fa560a;
+    box-shadow: 0 0 10px rgba(250, 86, 10, 0.5);
+  }
+  
+  /* Botón guardar cambios */
+  .btn-primary {
+    background: linear-gradient(90deg, #fa560a, #692a7c);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 30px;
+    border-radius: 25px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+  }
+  
+  .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Espaciado entre campos */
+  .form-group {
+    margin-bottom: 25px;
+    text-align: center; /* Centramos todo */
+  }
+
+  .btn-secondary {
+    background-color: #63beec; /* Naranja */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    display: inline-block;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #362a7c; /* Violeta */
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  /* Estilo para dispositivos móviles */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+      padding: 20px 15px;
+    }
+  
+    .form-control {
+      font-size: 14px;
+    }
+  
+    .btn-primary {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+  }
+  
