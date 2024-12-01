@@ -176,7 +176,7 @@ def enviar_cotizacion_proveedor(contexto):
    
     # Configura los parámetros del correo
     asunto = 'La cotización del GURU'
-    destinatario = 'alex_andy_25@yahoo.com.ar' #contexto['proveedor'].email  # Dirección de correo del cliente
+    destinatario = contexto['proveedor'].email  # Dirección de correo del cliente
     remitente = settings.DEFAULT_FROM_EMAIL
     
      # Renderiza el cuerpo del correo con la plantilla

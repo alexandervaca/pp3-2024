@@ -3,12 +3,15 @@
 {% block head %} {% endblock %}
 {% block titulo %} Login {% endblock %}
 {% block body %}
+<!-- NAVBAR--> 
+
+<!-- END NAVBAR--> 
 <div class="container">
     <div class="row justify-content-center pt-5">
         <div class="col-md-4 formulario">
             <div class="input-group mb-2 justify-content-center ">
                 <div class="input-group-append justify-content-center ">
-                    <img src={% static 'imagenes/guru-big.png' %} class="img-fluid " alt="" srcset="" width=40%;
+                    <img src={% static 'imagenes/guru-big.png' %} class="img-fluid" alt="" srcset="" width=40%;
                         height=auto></i>
                 </div>
                 <form method="POST" action="">
@@ -35,7 +38,7 @@
                     
                 </form>
                 {% for message in messages %}
-                <p style="color: rgba(227, 63, 63, 0.5);Logo font-weight: bolder;" id='messages'>{{message}}</p>
+                <p style="color: rgba(227, 63, 63, 0.5); font-weight: bolder;" id='messages'>{{message}}</p>
                 {% endfor %}
                 <div>
                     <a href="{% url 'reset_password' %} ">¿Olvidaste tu contraseña?</a>

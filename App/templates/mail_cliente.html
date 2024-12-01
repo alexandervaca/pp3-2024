@@ -61,6 +61,15 @@
         max-width: 48%;
         text-align: left;
         box-sizing: border-box;
+        /* Usando flexbox para distribuir elementos de manera uniforme */
+        flex: 1;
+    }
+    /* Usar flexbox para distribuir los proveedores */
+    .proveedor-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Espacio entre los elementos */
     }
     .provider-price {
         font-size: 18px;
@@ -80,6 +89,8 @@
     @media (max-width: 768px) {
         .proveedor-box {
             max-width: 100%;
+            height: auto;
+            min-height: 200px;
         }
         .final-title {
             font-size: 20px;
@@ -106,7 +117,7 @@
     </ul>
 
     {% if software %}
-    <div class="section-title-heading">En software seleccionaste lo siguiente:</div>
+    <div class="section-title-heading">En <strong>software</strong> seleccionaste lo siguiente:</div>
     <ul class="section-title">
         {% for sw in software %}
         <li><strong>{{ sw.descripcion }}</strong></li>
@@ -115,7 +126,7 @@
     {% endif %}
 
     <div class="section-title-heading">Tu cotización es la siguiente:</div>
-    <div>
+    <div class="proveedor-container">
         {% for total in total_por_proveedor %}
         <div class="proveedor-box">
             <p><strong>{{ total.empresa }}</strong></p>

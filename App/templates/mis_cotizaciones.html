@@ -1,7 +1,42 @@
 {% extends "base.html" %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/mis_cotizaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mis_datos.css' %}">
+{% endblock %}
+
+{% block navbar %}
+<div class="mb-5 " id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 px-5 px-lg-5" id="mainNav">
+        <div class="container-fluid px-5 px-lg-5">
+        <a class="navbar-brand ms-5 px-5 px-lg-5" href="{% url 'inicio' %}" style="font-size: 20px;">Inicio</a> 
+            <button class="navbar-toggler navbar-toggler-right " type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto my-2 my-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cotizar' %}" style="font-size: 20px;">Cotizar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'perfil' %}" style="font-size: 20px;">Mi perfil</a>
+                    </li>
+                    
+                    <li class="nav-item me-5">
+                        <a class="nav-link" href="{% url 'logout' %}" style="font-size: 20px;">Log Out</a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>                         
+    </nav>
+</div>
+
+{% endblock %}
+
 
 {% block content %}
-<div class="container">
+<div class="container mt-5">
     <h2 class="text-center">Mis Cotizaciones</h2>
     {% if cotizaciones %}
         {% for item in cotizaciones %}
@@ -35,7 +70,7 @@
                     <!-- Información agrupada por proveedor -->
                     {% for proveedor in item.proveedores %}
                         <h4>Proveedor: {{ proveedor.empresa }}</h4> <h5>Contacto Solicitado: 
-                            {% if item.cotizacion.contacto %}
+                            {% if proveedor.contacto %}
                             <span class="text-success">Sí</span>
                             {% else %}
                             <span class="text-danger">No</span>
@@ -77,10 +112,6 @@
     {% endif %}
 </div>
 
-<!-- Botón para regresar al menú principal -->
-<div class="text-center mt-2">
-    <a href="{% url 'inicio' %}" class="btn btn-secondary">Regresar al Menú Principal</a>
-</div>
 
 <script>
     // Función para mostrar/ocultar detalles de una cotización

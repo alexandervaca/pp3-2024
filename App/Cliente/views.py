@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from Cotizador.models import Cotizacion_cabecera, Cotizacion_linea
 from django.contrib.auth.forms import UserChangeForm
+from .forms import *
+from django.contrib import messages
 
 # Create your views here.
 
@@ -14,11 +16,14 @@ def mis_cotizaciones(request):
 
     # Recorremos cada cotización para calcular el total
     for cotizacion in cotizaciones:
+        print (cotizacion)
         total_por_proveedor = {}
 
         # Recorremos cada línea de la cotización para calcular el total por proveedor
         for linea in cotizacion.cotizacion_linea_set.all():
+            print (linea)
             proveedor = linea.idProveedor
+            print (f'proveedor: {proveedor}')
             precio_unitario = linea.precio_unitario
             cantidad = cotizacion.cantidad
 
@@ -42,7 +47,7 @@ def mis_cotizaciones(request):
                 "precio_unitario": precio_unitario,
                 "contacto": linea.contacto
             })
-
+           
             # Acumular el subtotal en el total del proveedor
             total_por_proveedor[proveedor]["total"] += subtotal
 
@@ -51,7 +56,11 @@ def mis_cotizaciones(request):
         "cotizacion": cotizacion,
         "proveedores": total_por_proveedor.values()
          })
-
+        print (f'contexto: {contexto}')
+        print (f'cotizacion: {cotizacion}')
+        print (f'total_por_proveedor: {total_por_proveedor}')
+        
+        print (f'total_por_proveedor.values(): {total_por_proveedor.values()}')
     # Pasamos el contexto al template
     return render(request, 'mis_cotizaciones.html', {'cotizaciones': contexto})
 
@@ -61,15 +70,17 @@ def mis_cotizaciones(request):
 def ver_editar_perfil(request):
     # Obtener los datos del usuario logueado
     usuario = request.user
-    
     # Si es una petición POST (cuando se envía el formulario)
     if request.method == 'POST':
         # Crear un formulario con los datos del usuario
-        formulario = UserChangeForm(request.POST, instance=usuario)
+        formulario =  ModificarUser(request.POST, instance=usuario)
         if formulario.is_valid():
             formulario.save()  # Guardar los cambios
+            messages.success(request, '¡Tu perfil ha sido actualizado con éxito!')  # Mensaje de éxito
             return redirect('perfil')  # Redirigir después de guardar
-    else:
-        formulario = UserChangeForm(instance=usuario)  # Mostrar el formulario con los datos actuales
+        else:
+            print(formulario.errors)  # Ver errores del formulario
 
+    else:
+        formulario =  ModificarUser(instance=usuario)  # Mostrar el formulario con los datos actuales
     return render(request, 'mis_datos.html', {'formulario': formulario})

@@ -168,60 +168,73 @@ def get_servicios_por_categoria(request):
     return JsonResponse({'servicios': []})
 
 def enviar_mail_proveedores(request):
+    # Obtener el parámetro 'proveedores' desde la URL (GET)
     proveedoresReq = request.GET.get('proveedores', None)
     print(f'enviar_mail_proveedores: {proveedoresReq}')
     
+    # Dividir los proveedores en una lista y convertirlos a enteros
     proveedoresReq = proveedoresReq.split(',')
     proveedores = list(map(int, proveedoresReq))
 
+    # Obtener el id de la cotización cabecera
     cotizacion_cabecera_id = request.GET.get('cotizacion_cabecera_id')
 
+    # Buscar la cotización cabecera correspondiente al id
     cotizacionCabList = Cotizacion_cabecera.objects.filter(id=cotizacion_cabecera_id)
 
+    # Si encuentra la cotización en la BD
     if cotizacionCabList:
-        cotizacionCab = cotizacionCabList.__getitem__(0)
-        print(f'cotizacionCab: {cotizacionCab}')
 
+         # Si se encuentra la cotización cabecera, obtener el primer objeto
+        cotizacionCab = cotizacionCabList.__getitem__(0)
+
+        # Obtener el cliente y otros datos de la cotización cabecera
         cliente = cotizacionCab.idCliente
-        print(f'cliente: {cliente}')
 
         vehiculo = cotizacionCab.idVehiculo
-        print(f'vehiculo: {vehiculo}')
 
         cantidad = cotizacionCab.cantidad
-        print(f'cantidad: {cantidad}')
+        
+        # Obtener la categoría 'Software'
+        catSoftware =Categoria.objects.get(descripcion = 'Software')       
 
+        # Iterar sobre los proveedores seleccionados
         for proveedorId in proveedores:
-            proveedorList = Proveedor.objects.filter(id=proveedorId)
+            # Se obtienen los datos del proveedor de la BD
+            proveedor = Proveedor.objects.get(id=proveedorId)
+            # Inicializar listas para software y servicios
+            software = []
+            servicios = []
 
+            # Se obtienen las líneas de las cotizaciones para ese proveedor
             cotizacionLinList = Cotizacion_linea.objects.filter(idCotizazion_cab=cotizacionCab.id,idProveedor=proveedorId)
             if cotizacionLinList:
-                cotizacionLin = cotizacionLinList.__getitem__(0)
-                
-                #categoria = Categoria.objects.filter(id=cotizacionLin.idCategoria)
-                categoria = cotizacionLin.idCategoria
-                print(f'categoria: {categoria}')
+                for item in cotizacionLinList:
+                    print (item)
+                    if item.idCategoria == catSoftware:
+                        software.append(item.idServicio)
+                    else:
+                        #Agregamos el serivicio a la lista
+                        servicios.append(item.idServicio)
+                        # Asignamos la categoría elegida
+                        categoria= item.idCategoria
 
-                servicios = Servicio.objects.filter(id=cotizacionLin.idServicio.id)
-                print(f'servicios: {servicios}')
-
-                # si la categoria es 'Software', filtrar por este dato
-                software = any
-
-                proveedor = proveedorList[0]
-                print(f'proveedor: {proveedor}')
-
-                contexto = {
-                    'cliente': cliente,
-                    'proveedor': proveedor,
-                    'vehiculo': vehiculo,
-                    'cantidad': cantidad,
-                    'categoria':categoria,
-                    'servicios':servicios,
-                    'software':software
+                    # Actualizar el campo 'contacto' en la BD a True**
+                    item.contacto = True  
+                    item.save() 
+            # Por cada proveedor mandamos guardamos el contexto y mandamos un mail.
+            contexto = {
+                'cliente': cliente,
+                'proveedor': proveedor,
+                'vehiculo': vehiculo,
+                'cantidad': cantidad,
+                'categoria':categoria,
+                'servicios':servicios,
+                'software':software
                 }
+            
 
-                enviar_cotizacion_proveedor(contexto)
+            enviar_cotizacion_proveedor(contexto)
 
 
     return JsonResponse({'status': 'ok'})
