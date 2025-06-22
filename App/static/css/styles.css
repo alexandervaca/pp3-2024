@@ -126,7 +126,7 @@ h1,
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('ruta/de/tu/fondo.jpg');
+  /*background-image: url('ruta/de/tu/fondo.jpg');*/
   background-size: cover;
   background-position: center;
   overflow: hidden;

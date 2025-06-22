@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('inicio/', views.inicio, name='inicio' ),
-    path('cotizacion/', views.cotizacion, name='cotizacion' ), #donde va luego de cargar le form
+    path('cotizacion/', views.cotizacion, name='cotizacion' ), #donde va luego de cargar el form
     #path('cotizar/', views.cotizar, name='cotizar' ),
     #path('cotizar/', CotizacionWizard.as_view(), name='cotizacion_wizard'),
     path('cotizar/', CotizacionWizard.as_view(), name='cotizar' ),
